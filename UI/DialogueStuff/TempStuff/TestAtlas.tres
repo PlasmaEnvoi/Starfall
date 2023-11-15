@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cf2ae4kuc40fc"]
+
+[ext_resource type="Texture2D" uid="uid://b0dtg1ivy8433" path="res://UI/DialogueStuff/TempStuff/ScribeWizard.png" id="1_kavs3"]
+
+[resource]
+atlas = ExtResource("1_kavs3")
+region = Rect2(-8, 0, 2883.68, 3688)

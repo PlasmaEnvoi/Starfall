@@ -1,0 +1,151 @@
+[res://TestStuff/marcytest.gd]
+
+state={
+"bookmarks": PackedInt32Array(),
+"breakpoints": PackedInt32Array(),
+"column": 12,
+"folded_lines": Array[int]([]),
+"h_scroll_position": 0,
+"row": 354,
+"scroll_position": 342.0,
+"selection": false,
+"syntax_highlighter": "GDScript"
+}
+
+[res://TestStuff/TestWorld.gd]
+
+state={
+"bookmarks": PackedInt32Array(),
+"breakpoints": PackedInt32Array(),
+"column": 42,
+"folded_lines": Array[int]([]),
+"h_scroll_position": 0,
+"row": 15,
+"scroll_position": 0.0,
+"selection": false,
+"syntax_highlighter": "GDScript"
+}
+
+[res://TestStuff/CamTest.gd]
+
+state={
+"bookmarks": PackedInt32Array(),
+"breakpoints": PackedInt32Array(),
+"column": 21,
+"folded_lines": Array[int]([]),
+"h_scroll_position": 0,
+"row": 15,
+"scroll_position": 0.0,
+"selection": false,
+"syntax_highlighter": "GDScript"
+}
+
+[res://TestStuff/BasicMove.gd]
+
+state={
+"bookmarks": PackedInt32Array(),
+"breakpoints": PackedInt32Array(),
+"column": 24,
+"folded_lines": Array[int]([]),
+"h_scroll_position": 0,
+"row": 109,
+"scroll_position": 0.0,
+"selection": true,
+"selection_from_column": 12,
+"selection_from_line": 109,
+"selection_to_column": 24,
+"selection_to_line": 109,
+"syntax_highlighter": "GDScript"
+}
+
+[res://TestStuff/TestChars/MarcyVisuals.gd]
+
+state={
+"bookmarks": PackedInt32Array(),
+"breakpoints": PackedInt32Array(),
+"column": 2,
+"folded_lines": Array[int]([]),
+"h_scroll_position": 0,
+"row": 78,
+"scroll_position": 53.5,
+"selection": false,
+"syntax_highlighter": "GDScript"
+}
+
+[res://TestStuff/EnemyTest.gd]
+
+state={
+"bookmarks": PackedInt32Array(),
+"breakpoints": PackedInt32Array(),
+"column": 19,
+"folded_lines": Array[int]([]),
+"h_scroll_position": 0,
+"row": 51,
+"scroll_position": 39.0,
+"selection": false,
+"syntax_highlighter": "GDScript"
+}
+
+[res://TestStuff/PlaySpark.gd]
+
+state={
+"bookmarks": PackedInt32Array(),
+"breakpoints": PackedInt32Array(),
+"column": 26,
+"folded_lines": Array[int]([]),
+"h_scroll_position": 0,
+"row": 12,
+"scroll_position": 0.0,
+"selection": false,
+"syntax_highlighter": "GDScript"
+}
+
+[res://TestStuff/StandardHurtManage.gd]
+
+state={
+"bookmarks": PackedInt32Array(),
+"breakpoints": PackedInt32Array(),
+"column": 13,
+"folded_lines": Array[int]([]),
+"h_scroll_position": 0,
+"row": 72,
+"scroll_position": 0.0,
+"selection": true,
+"selection_from_column": 2,
+"selection_from_line": 72,
+"selection_to_column": 13,
+"selection_to_line": 72,
+"syntax_highlighter": "GDScript"
+}
+
+[res://Enemies/EnemyAITypes/BrawlerBase.gd]
+
+state={
+"bookmarks": PackedInt32Array(),
+"breakpoints": PackedInt32Array(),
+"column": 1,
+"folded_lines": Array[int]([]),
+"h_scroll_position": 0,
+"row": 191,
+"scroll_position": 169.0,
+"selection": true,
+"selection_from_column": 2,
+"selection_from_line": 157,
+"selection_to_column": 1,
+"selection_to_line": 191,
+"syntax_highlighter": "GDScript"
+}
+
+[res://Enemies/EnemyAITypes/BasicUnitData.gd]
+
+state={
+"bookmarks": PackedInt32Array(),
+"breakpoints": PackedInt32Array(),
+"column": 23,
+"folded_lines": Array[int]([]),
+"h_scroll_position": 0,
+"row": 58,
+"scroll_position": 32.0,
+"selection": false,
+"syntax_highlighter": "GDScript"
+}

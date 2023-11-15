@@ -1,0 +1,10 @@
+res://Maps/DeepBriar/FloorDeco/DecoResources/glowingPumpkin.tscn
+res://UI/DialogueStuff/DialogueManager.gd
+res://TestStuff/TestChars/ToonShaderTEst.gdshader
+res://UI/DialogueStuff/TempStuff/TestAtlas.tres
+res://Maps/DeepBriar/FloorDeco/DecoResources/TestLight_Roundcube_010.res
+res://Maps/DeepBriar/FloorDeco/DecoResources/TestLight_Circle_007.res
+res://Maps/DeepBriar/FloorDeco/DecoResources/TestLight_Roundcube_005.res
+res://TestStuff/SwordSlashTest.gdshader
+res://TestStuff/test.gdshader
+res://Disintegrate.tres

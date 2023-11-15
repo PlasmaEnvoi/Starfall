@@ -1,0 +1,124 @@
+[gd_scene load_steps=11 format=3 uid="uid://cadnf7qh7vhbp"]
+
+[ext_resource type="Texture2D" uid="uid://blxbqfrwqw4q0" path="res://Effects/ChargeShine.png" id="1_mlcm6"]
+[ext_resource type="Script" path="res://TestStuff/TestChars/ChargeAnimationManager.gd" id="1_p2yos"]
+[ext_resource type="Texture2D" uid="uid://b31ma414flmu6" path="res://Effects/chargecircle.png" id="2_k1jl6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y08py"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+albedo_texture = ExtResource("1_mlcm6")
+billboard_mode = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5qouw"]
+material = SubResource("StandardMaterial3D_y08py")
+size = Vector2(0.5, 0.5)
+orientation = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pwf31"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("2_k1jl6")
+billboard_mode = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_774ax"]
+material = SubResource("StandardMaterial3D_pwf31")
+size = Vector2(5, 5)
+orientation = 2
+
+[sub_resource type="Animation" id="Animation_4e7k7"]
+resource_name = "Charging"
+length = 0.3
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ChargeCircle:mesh:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(5, 5), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OmniLight3D:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [4.96, 2.99]
+}
+
+[sub_resource type="Animation" id="Animation_uxf35"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ChargeCircle:mesh:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, 5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OmniLight3D:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [4.96]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uetr3"]
+_data = {
+"Charging": SubResource("Animation_4e7k7"),
+"RESET": SubResource("Animation_uxf35")
+}
+
+[node name="SpearChargeBase" type="Node3D" node_paths=PackedStringArray("anims", "charge_particles", "light", "charge_circle")]
+script = ExtResource("1_p2yos")
+anims = NodePath("AnimationPlayer")
+charge_particles = NodePath("ChargeParticles")
+light = NodePath("OmniLight3D")
+charge_circle = NodePath("ChargeCircle")
+
+[node name="ChargeParticles" type="CPUParticles3D" parent="."]
+amount = 24
+lifetime = 0.45
+randomness = 1.0
+lifetime_randomness = 1.0
+mesh = SubResource("PlaneMesh_5qouw")
+emission_shape = 1
+emission_sphere_radius = 4.6
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -79.15
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 0, 1, 1)
+light_energy = 4.96
+omni_range = 11.5279
+
+[node name="ChargeCircle" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_774ax")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uetr3")
+}

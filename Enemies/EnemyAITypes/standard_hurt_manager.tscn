@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cioa87eff1yli"]
+
+[ext_resource type="Script" path="res://TestStuff/StandardHurtManage.gd" id="1_us8tn"]
+
+[node name="StandardHurtManager" type="Node3D"]
+script = ExtResource("1_us8tn")

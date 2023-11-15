@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://chjcr5rdfdm3c"]
+
+[ext_resource type="Script" path="res://Enemies/EnemyAITypes/BrawlerBase.gd" id="1_xyyrh"]
+[ext_resource type="PackedScene" uid="uid://cioa87eff1yli" path="res://Enemies/EnemyAITypes/standard_hurt_manager.tscn" id="2_6xuqe"]
+[ext_resource type="PackedScene" uid="uid://b6smw5r26amiu" path="res://Enemies/DeepBriar/Imperials/Imperial.tscn" id="2_nr2fu"]
+[ext_resource type="PackedScene" uid="uid://cvkvracdnwsi2" path="res://UI/HealthBar.tscn" id="4_akokp"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_wjkbn"]
+custom_solver_bias = 1.0
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_2wf20"]
+custom_solver_bias = 1.0
+length = 0.444867
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_766y1"]
+top_radius = 0.05
+bottom_radius = 0.05
+radial_segments = 4
+rings = 1
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6c3ka"]
+viewport_path = NodePath("HealthBarDisplay/SubViewport")
+
+[node name="BrawlerBase" type="CharacterBody3D" node_paths=PackedStringArray("hurt_manager", "health_bar", "bar_display") groups=["Enemy"]]
+script = ExtResource("1_xyyrh")
+hurt_manager = NodePath("StandardHurtManager")
+unit_type = ExtResource("2_nr2fu")
+health_bar = NodePath("HealthBarDisplay/SubViewport/HealthBar/Bar")
+bar_display = NodePath("HealthBarDisplay")
+unit_scale = Vector3(6, 6, 6)
+
+[node name="StandardHurtManager" parent="." instance=ExtResource("2_6xuqe")]
+
+[node name="FloorCol" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, -3.0598e-08, -0.7, 0, 0.7, -3.0598e-08, 0, 0.710941, 0)
+shape = SubResource("SeparationRayShape3D_wjkbn")
+
+[node name="FloorCol2" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, 9.17939e-08, 0.7, 0, -0.7, 9.17939e-08, 0, 0.998401, 0)
+shape = SubResource("SeparationRayShape3D_wjkbn")
+
+[node name="LeftCol" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -2.13163e-14, -1, 0, 1, -2.13163e-14, 1, -9.31764e-22, -4.37114e-08, 0, 0.44222, 0)
+shape = SubResource("SeparationRayShape3D_2wf20")
+
+[node name="RightCol" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 2.13163e-14, 1, 0, 1, -2.13163e-14, -1, -9.31764e-22, -4.37114e-08, 0, 0.44222, 0)
+shape = SubResource("SeparationRayShape3D_2wf20")
+
+[node name="LeftCol2" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -2.13163e-14, -1, 0, 1, -2.13163e-14, 1, -9.31764e-22, -4.37114e-08, 0, 1.21776, 0)
+shape = SubResource("SeparationRayShape3D_2wf20")
+
+[node name="RightCol2" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 2.13163e-14, 1, 0, 1, -2.13163e-14, -1, -9.31764e-22, -4.37114e-08, 0, 1.21776, 0)
+shape = SubResource("SeparationRayShape3D_2wf20")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+mesh = SubResource("CylinderMesh_766y1")
+
+[node name="HealthBarDisplay" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.432588, 0)
+visible = false
+billboard = 1
+no_depth_test = true
+texture = SubResource("ViewportTexture_6c3ka")
+
+[node name="SubViewport" type="SubViewport" parent="HealthBarDisplay"]
+disable_3d = true
+transparent_bg = true
+
+[node name="HealthBar" parent="HealthBarDisplay/SubViewport" instance=ExtResource("4_akokp")]
+
+[editable path="HealthBarDisplay/SubViewport/HealthBar"]

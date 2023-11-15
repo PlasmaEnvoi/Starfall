@@ -1,0 +1,242 @@
+[gd_scene load_steps=10 format=3 uid="uid://cxjxmb0rc8urt"]
+
+[ext_resource type="Script" path="res://UI/ShopMenu.gd" id="1_oecaq"]
+[ext_resource type="PackedScene" uid="uid://b3rvrufa8k1ny" path="res://UI/shop_item.tscn" id="2_jnsne"]
+[ext_resource type="Script" path="res://UI/StoreThings/Items/General/StoreItem.gd" id="2_jvuq1"]
+
+[sub_resource type="Resource" id="Resource_as51j"]
+script = ExtResource("2_jvuq1")
+cost_range = Vector2(15, 35)
+item_type = 1
+move_anim = ""
+move_desc = ""
+
+[sub_resource type="Resource" id="Resource_gwchb"]
+script = ExtResource("2_jvuq1")
+cost_range = Vector2(15, 35)
+item_type = 2
+move_anim = ""
+move_desc = ""
+
+[sub_resource type="Resource" id="Resource_4lh0g"]
+script = ExtResource("2_jvuq1")
+cost_range = Vector2(15, 35)
+item_type = 3
+move_anim = ""
+move_desc = ""
+
+[sub_resource type="Resource" id="Resource_tkg50"]
+script = ExtResource("2_jvuq1")
+cost_range = Vector2(15, 35)
+item_type = 1
+move_anim = ""
+move_desc = ""
+
+[sub_resource type="Resource" id="Resource_f1ajq"]
+script = ExtResource("2_jvuq1")
+cost_range = Vector2(15, 35)
+item_type = 2
+move_anim = ""
+move_desc = ""
+
+[sub_resource type="Resource" id="Resource_amd4d"]
+script = ExtResource("2_jvuq1")
+cost_range = Vector2(15, 35)
+item_type = 1
+move_anim = ""
+move_desc = ""
+
+[node name="Shop" type="Control" node_paths=PackedStringArray("cash_display", "item_desc", "shop_grid")]
+layout_mode = 3
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oecaq")
+stock = Array[ExtResource("2_jvuq1")]([SubResource("Resource_as51j"), SubResource("Resource_gwchb"), SubResource("Resource_4lh0g"), SubResource("Resource_tkg50"), SubResource("Resource_f1ajq"), SubResource("Resource_amd4d")])
+cash_display = NodePath("BG/PlayerResources/Stuff/ResourceContainer/BG/EssenseCount")
+item_desc = NodePath("BG/Weapon/ItemDescription/Description")
+shop_button = ExtResource("2_jnsne")
+shop_grid = NodePath("BG/Weapon/Items/ShopGrid")
+
+[node name="BG" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="BG"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.02
+anchor_right = 0.8
+anchor_bottom = 0.1
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "SHOP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Weapon" type="Panel" parent="BG"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.1
+anchor_right = 0.95
+anchor_bottom = 0.79
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemDescription" type="Panel" parent="BG/Weapon"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.2
+anchor_right = 0.3
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Description" type="Label" parent="BG/Weapon/ItemDescription"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "the fuckin uhh... the item that uh.... it's a fucking uhhhh....... mfin....."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Information" type="Label" parent="BG/Weapon"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.3
+anchor_bottom = 0.2
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 35
+text = "ITEM"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Items" type="Panel" parent="BG/Weapon"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.31
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StoreItems" type="Label" parent="BG/Weapon/Items"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.2
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 35
+text = "STUFF"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ShopGrid" type="GridContainer" parent="BG/Weapon/Items"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 3
+
+[node name="Item" parent="BG/Weapon/Items/ShopGrid" instance=ExtResource("2_jnsne")]
+layout_mode = 2
+
+[node name="Item2" parent="BG/Weapon/Items/ShopGrid" instance=ExtResource("2_jnsne")]
+layout_mode = 2
+
+[node name="Item3" parent="BG/Weapon/Items/ShopGrid" instance=ExtResource("2_jnsne")]
+layout_mode = 2
+
+[node name="Item4" parent="BG/Weapon/Items/ShopGrid" instance=ExtResource("2_jnsne")]
+layout_mode = 2
+
+[node name="Item5" parent="BG/Weapon/Items/ShopGrid" instance=ExtResource("2_jnsne")]
+layout_mode = 2
+
+[node name="Item6" parent="BG/Weapon/Items/ShopGrid" instance=ExtResource("2_jnsne")]
+layout_mode = 2
+
+[node name="PlayerResources" type="Panel" parent="BG"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.8
+anchor_right = 0.95
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoLabels" type="Panel" parent="BG/PlayerResources"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.19
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resources" type="Label" parent="BG/PlayerResources/InfoLabels"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 27
+text = "RESOURCES:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stuff" type="Panel" parent="BG/PlayerResources"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResourceContainer" type="HBoxContainer" parent="BG/PlayerResources/Stuff"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="BG" type="Panel" parent="BG/PlayerResources/Stuff/ResourceContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EssenseCount" type="Label" parent="BG/PlayerResources/Stuff/ResourceContainer/BG"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 70
+text = "999"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c404ej5d1d3w1"]
+
+[ext_resource type="ArrayMesh" uid="uid://n4j1rsppe3q5" path="res://Maps/DeepBriar/FloorDeco/DecoResources/TestLight_Circle_007.res" id="1_fkyag"]
+
+[node name="LightFruit" type="MeshInstance3D"]
+mesh = ExtResource("1_fkyag")
+skeleton = NodePath("")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.238002, 2.00136, 0)
+light_color = Color(0.717647, 0.67451, 0.152941, 1)
+light_energy = 8.32
+omni_range = 14.0

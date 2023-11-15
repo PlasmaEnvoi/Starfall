@@ -1,0 +1,80 @@
+[gd_scene load_steps=9 format=3 uid="uid://cojb87akn5soe"]
+
+[ext_resource type="Script" path="res://TestStuff/marcytest.gd" id="1_k22ay"]
+[ext_resource type="PackedScene" uid="uid://c26pjlpgv6hg7" path="res://TestStuff/TestChars/MarcySpearNBoard.tscn" id="2_flayd"]
+[ext_resource type="PackedScene" uid="uid://cioa87eff1yli" path="res://Enemies/EnemyAITypes/standard_hurt_manager.tscn" id="3_5hmog"]
+[ext_resource type="Script" path="res://TestStuff/SoundManager.gd" id="3_jepsl"]
+[ext_resource type="PackedScene" uid="uid://cxjxmb0rc8urt" path="res://UI/shop.tscn" id="4_34se3"]
+[ext_resource type="AudioStream" uid="uid://c5nyh363h0kol" path="res://Audio/Effects/Starfall_-_Slash_SFX.ogg" id="4_ygpqr"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_ybaai"]
+custom_solver_bias = 1.0
+length = 1.2
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_owcb6"]
+custom_solver_bias = 1.0
+length = 0.702658
+
+[node name="MarcyTest" type="CharacterBody3D" node_paths=PackedStringArray("l_wall_sensor", "r_wall_sensor", "floor_sensor", "hurt_manager", "shop", "audio_player") groups=["Player"]]
+collision_layer = 131
+collision_mask = 131
+axis_lock_linear_z = true
+floor_stop_on_slope = false
+script = ExtResource("1_k22ay")
+marcy_type = ExtResource("2_flayd")
+l_wall_sensor = NodePath("Sensors/LWall")
+r_wall_sensor = NodePath("Sensors/RWall")
+floor_sensor = NodePath("Sensors/FloorSensor")
+hurt_manager = NodePath("StandardHurtManager")
+shop = NodePath("Shop")
+health = 1500
+audio_player = NodePath("AudioPlayer")
+
+[node name="AudioPlayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_ygpqr")
+script = ExtResource("3_jepsl")
+attack_sounds = Array[AudioStream]([ExtResource("4_ygpqr")])
+
+[node name="StandardHurtManager" parent="." instance=ExtResource("3_5hmog")]
+
+[node name="FloorCol" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.7, 0, 0, 0, -3.0598e-08, -0.7, 0, 0.7, -3.0598e-08, 0, 0.807098, 0)
+shape = SubResource("SeparationRayShape3D_ybaai")
+
+[node name="CeilCol" type="CollisionShape3D" parent="."]
+transform = Transform3D(-0.7, 6.11959e-08, 2.67496e-15, 0, -3.0598e-08, 0.7, 6.11959e-08, 0.7, 3.0598e-08, 0, 0.807098, 0)
+shape = SubResource("SeparationRayShape3D_ybaai")
+
+[node name="LeftCol" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -2.13163e-14, -1, 0, 1, -2.13163e-14, 1, -9.31764e-22, -4.37114e-08, 0, 0.0374681, 0)
+shape = SubResource("SeparationRayShape3D_owcb6")
+
+[node name="RightCol" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 2.13163e-14, 1, 0, 1, -2.13163e-14, -1, -9.31764e-22, -4.37114e-08, 0, 0.0374681, 0)
+shape = SubResource("SeparationRayShape3D_owcb6")
+
+[node name="LeftCol2" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -2.13163e-14, -1, 0, 1, -2.13163e-14, 1, -9.31764e-22, -4.37114e-08, 0, 1.20295, 0)
+shape = SubResource("SeparationRayShape3D_owcb6")
+
+[node name="RightCol2" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 2.13163e-14, 1, 0, 1, -2.13163e-14, -1, -9.31764e-22, -4.37114e-08, 0, 1.20295, 0)
+shape = SubResource("SeparationRayShape3D_owcb6")
+
+[node name="Sensors" type="Node3D" parent="."]
+
+[node name="LWall" type="RayCast3D" parent="Sensors"]
+transform = Transform3D(1.31134e-07, 1, 0, -1, 1.31134e-07, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+
+[node name="RWall" type="RayCast3D" parent="Sensors"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+visible = false
+
+[node name="FloorSensor" type="RayCast3D" parent="Sensors"]
+transform = Transform3D(1, -1.74846e-07, 0, 1.74846e-07, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Shop" parent="." instance=ExtResource("4_34se3")]
+visible = false
+
+[editable path="Shop"]

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StageDecoration" load_steps=3 format=3 uid="uid://b5gige0b502ty"]
+
+[ext_resource type="PackedScene" uid="uid://o0eb4mficgft" path="res://Maps/DeepBriar/FloorDeco/DecoResources/_rock_2.tscn" id="1_a0h44"]
+[ext_resource type="Script" path="res://Maps/StageInformation/DecorationInfo.gd" id="1_sb5p8"]
+
+[resource]
+script = ExtResource("1_sb5p8")
+min_scale = Vector3(1, 1, 1)
+scale_variation = 0.3
+min_rotation = 0
+max_rotation = 0
+deco_scene = ExtResource("1_a0h44")

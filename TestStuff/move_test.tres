@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="Move" load_steps=2 format=3 uid="uid://dao7kqkxwipb0"]
+
+[ext_resource type="Script" path="res://TestStuff/BasicMove.gd" id="1_8igpi"]
+
+[resource]
+script = ExtResource("1_8igpi")
+move_name = ""
+move_strength = 0
+interaction_type = 0
+move_type = 0
+give_meter = 0
+take_meter = 0
+halt_movement = false
+halt_gravity = false
+movement_a = Vector2(0, 0)
+movement_b = Vector2(0, 0)
+movement_c = Vector2(0, 0)
+movement_d = Vector2(0, 0)
+movement_e = Vector2(0, 0)
+movement_f = Vector2(0, 0)
+movement_g = Vector2(0, 0)
+movement_h = Vector2(0, 0)
+movement_i = Vector2(0, 0)
+damaging = false
+hits_once = false
+spark_pos = Vector2(0, 0)
+spark_rot = 0
+move_damage = 0
+aggrressor_hitpause = 0
+reciever_hitpause = 0
+guard_pause = 0
+numhits = 1
+spark_strength = 0
+spark_type = 0
+armor_piercing = false
+hit_properties = 0
+can_hit = 0
+ground_anim_type = 0
+air_anim_type = 0
+down_anim_type = 0
+launch = false
+knockdown = false
+bounce = false
+juggle_cost = 0
+can_juggle = false
+hit_shake = 0
+ground_vel = Vector2(0, 0)
+air_vel = Vector2(0, 0)
+down_vel = Vector2(0, 0)
+hurt_vel = Vector2(0, 0)
+bounce_vel = Vector2(0, 0)
+custom_gravity = false
+fall_gravity = Vector2(0, 0)
+ground_hit_time = 0.0
+air_hit_time = 0.0
+down_hit_time = 0.0
+fall_hit_time = 0.0

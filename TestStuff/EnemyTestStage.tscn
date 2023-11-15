@@ -1,0 +1,91 @@
+[gd_scene load_steps=6 format=3 uid="uid://cw4l17dni2q4w"]
+
+[ext_resource type="PackedScene" uid="uid://chjcr5rdfdm3c" path="res://Enemies/EnemyAITypes/Brawler.tscn" id="1_hek0r"]
+[ext_resource type="PackedScene" uid="uid://b6smw5r26amiu" path="res://Enemies/DeepBriar/Imperials/Imperial.tscn" id="2_q4stq"]
+[ext_resource type="PackedScene" uid="uid://cojb87akn5soe" path="res://TestStuff/MarcyCharacterBody.tscn" id="3_p3bts"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ic6po"]
+size = Vector3(4, 0.265, 4)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_71n0v"]
+data = PackedVector3Array(-2, 0.1325, 2, 2, 0.1325, 2, -2, -0.1325, 2, 2, 0.1325, 2, 2, -0.1325, 2, -2, -0.1325, 2, 2, 0.1325, -2, -2, 0.1325, -2, 2, -0.1325, -2, -2, 0.1325, -2, -2, -0.1325, -2, 2, -0.1325, -2, 2, 0.1325, 2, 2, 0.1325, -2, 2, -0.1325, 2, 2, 0.1325, -2, 2, -0.1325, -2, 2, -0.1325, 2, -2, 0.1325, -2, -2, 0.1325, 2, -2, -0.1325, -2, -2, 0.1325, 2, -2, -0.1325, 2, -2, -0.1325, -2, 2, 0.1325, 2, -2, 0.1325, 2, 2, 0.1325, -2, -2, 0.1325, 2, -2, 0.1325, -2, 2, 0.1325, -2, -2, -0.1325, 2, 2, -0.1325, 2, -2, -0.1325, -2, 2, -0.1325, 2, 2, -0.1325, -2, -2, -0.1325, -2)
+
+[node name="World" type="Node3D"]
+
+[node name="Stage" type="Node3D" parent="."]
+transform = Transform3D(10.95, 0, 0, 0, 8.145, 0, 0, 0, 6, 0, -0.430843, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.147181, 0)
+mesh = SubResource("BoxMesh_ic6po")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Stage/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_71n0v")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.58141, 0)
+mesh = SubResource("BoxMesh_ic6po")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Stage/MeshInstance3D4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/MeshInstance3D4/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_71n0v")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Stage"]
+transform = Transform3D(0.405, 0, 0, 0, 0.48, 0, 0, 0, 1, 0.958973, 2.44448, 0)
+mesh = SubResource("BoxMesh_ic6po")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Stage/MeshInstance3D5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/MeshInstance3D5/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_71n0v")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Stage"]
+transform = Transform3D(0.405, 0, 0, 0, 0.48, 0, 0, 0, 1, -1.05998, 2.43489, 0)
+mesh = SubResource("BoxMesh_ic6po")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Stage/MeshInstance3D6"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/MeshInstance3D6/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_71n0v")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Stage"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.8643, 1.72693, 0)
+mesh = SubResource("BoxMesh_ic6po")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Stage/MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/MeshInstance3D2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_71n0v")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Stage"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.87411, 1.72693, 0)
+mesh = SubResource("BoxMesh_ic6po")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Stage/MeshInstance3D3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/MeshInstance3D3/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_71n0v")
+
+[node name="BrawlerBase" parent="." instance=ExtResource("1_hek0r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.11861, 0.342, 0)
+unit_type = ExtResource("2_q4stq")
+unit_scale = Vector3(2, 2, 2)
+
+[node name="MarcyTest" parent="." instance=ExtResource("3_p3bts")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -3.62077, -0.015, 0)
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.99741, 0.0719327, 0, -0.0719327, 0.99741, 0, 4.86259, 34.5825)
+keep_aspect = 0
+current = true
+fov = 52.0
+size = 16.545

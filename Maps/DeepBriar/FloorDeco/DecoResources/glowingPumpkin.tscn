@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbrkdlkkdpkm1"]
+
+[ext_resource type="ArrayMesh" uid="uid://dwbmqit75iyf3" path="res://Maps/DeepBriar/FloorDeco/DecoResources/TestLight_Roundcube_005.res" id="1_pmqa4"]
+
+[node name="Roundcube_005" type="MeshInstance3D"]
+mesh = ExtResource("1_pmqa4")
+skeleton = NodePath("")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.622551, 0)
+light_color = Color(0.498039, 0.701961, 0.713726, 1)
+light_energy = 6.69
+omni_range = 16.5242

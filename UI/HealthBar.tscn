@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvkvracdnwsi2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfx46"]
+bg_color = Color(0.356863, 0, 0.054902, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ukosr"]
+bg_color = Color(0.12549, 0.67451, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="HealthBar" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = -8.0
+offset_right = 67.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_sfx46")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ukosr")
+value = 50.0
+show_percentage = false

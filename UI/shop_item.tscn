@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3rvrufa8k1ny"]
+
+[ext_resource type="Script" path="res://UI/ShopItem.gd" id="1_4u3hc"]
+[ext_resource type="Texture2D" uid="uid://cswv7lri8k14x" path="res://Icons/GENERIC0002.png" id="2_e3s30"]
+[ext_resource type="Texture2D" uid="uid://cbi6x51klwp2f" path="res://Icons/GENERIC0001.png" id="2_repc1"]
+[ext_resource type="Texture2D" uid="uid://bfs7ntegnq21w" path="res://Icons/GENERIC0003.png" id="4_t0484"]
+
+[node name="Item" type="Button" node_paths=PackedStringArray("item_cost", "item_icon", "sold_text")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_4u3hc")
+item_cost = NodePath("MarginContainer/Price")
+item_icon = NodePath("ItemIcon")
+sold_text = NodePath("SoldText")
+speed_icon = ExtResource("2_e3s30")
+endurance_icon = ExtResource("2_repc1")
+strength_icon = ExtResource("4_t0484")
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Price" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 55
+text = "99"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="SoldText" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.211765, 0.160784, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 28
+theme_override_font_sizes/font_size = 75
+text = "SOLD"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="focus_entered" from="." to="." method="on_focused"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

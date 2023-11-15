@@ -1,0 +1,222 @@
+[gd_scene load_steps=9 format=3 uid="uid://bruipd3u8u3o7"]
+
+[ext_resource type="Texture2D" uid="uid://b0dtg1ivy8433" path="res://UI/DialogueStuff/TempStuff/ScribeWizard.png" id="1_3jcu7"]
+[ext_resource type="Script" path="res://UI/DialogueStuff/DialogueManager.gd" id="1_6272j"]
+[ext_resource type="Texture2D" uid="uid://cf2ae4kuc40fc" path="res://UI/DialogueStuff/TempStuff/TestAtlas.tres" id="2_i7djd"]
+[ext_resource type="Script" path="res://UI/DialogueStuff/DialogueInfoBase.gd" id="2_omt3i"]
+
+[sub_resource type="Resource" id="Resource_1u42x"]
+script = ExtResource("2_omt3i")
+actor_1_portrait = ExtResource("2_i7djd")
+actor_1_name = "Left Wizard"
+actor_1_title = "Wizzin N Rizzin"
+actor_1_expression = ""
+actor_2_portrait = ExtResource("2_i7djd")
+actor_2_name = "Right Wizard"
+actor_2_title = "Castin and Blastin"
+actor_2_expression = ""
+current_line = "Hello there fellow wizard how are you doing"
+current_speaker = 0
+
+[sub_resource type="Resource" id="Resource_lj1rl"]
+script = ExtResource("2_omt3i")
+actor_1_portrait = ExtResource("2_i7djd")
+actor_1_name = "Left Wizard"
+actor_1_title = "Wizzin N Rizzin"
+actor_1_expression = ""
+actor_2_portrait = ExtResource("2_i7djd")
+actor_2_name = "Right Wizard"
+actor_2_title = "Castin and Blastin"
+actor_2_expression = ""
+current_line = "Rather phenomenal my good mage how are you doing yourself homeskillet"
+current_speaker = 1
+
+[sub_resource type="Resource" id="Resource_qmucs"]
+script = ExtResource("2_omt3i")
+actor_1_portrait = ExtResource("2_i7djd")
+actor_1_name = "Left Wizard"
+actor_1_title = "Wizzin N Rizzin"
+actor_1_expression = ""
+actor_2_portrait = ExtResource("2_i7djd")
+actor_2_name = "Right Wizard"
+actor_2_title = "Castin and Blastin"
+actor_2_expression = ""
+current_line = "The wizards spend three minutes nodding to each other, saying nothing."
+current_speaker = 2
+
+[sub_resource type="Resource" id="Resource_bfdr6"]
+script = ExtResource("2_omt3i")
+actor_1_portrait = ExtResource("2_i7djd")
+actor_1_name = "Left Wizard"
+actor_1_title = "Wizzin N Rizzin"
+actor_1_expression = ""
+actor_2_portrait = ExtResource("2_i7djd")
+actor_2_name = "Right Wizard"
+actor_2_title = "Castin and Blastin"
+actor_2_expression = ""
+current_line = "Satisfactory!"
+current_speaker = 3
+
+[node name="DialoguePopup" type="Control" node_paths=PackedStringArray("actor_1_portrait", "actor_2_portrait", "speaker_name", "speaker_title", "dialogue_box")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6272j")
+current_script = Array[ExtResource("2_omt3i")]([SubResource("Resource_1u42x")])
+test_script = Array[ExtResource("2_omt3i")]([SubResource("Resource_1u42x"), SubResource("Resource_lj1rl"), SubResource("Resource_qmucs"), SubResource("Resource_bfdr6")])
+actor_1_portrait = NodePath("Margin/Holder/ActorL/ActorPanelL/ActorImageL")
+actor_2_portrait = NodePath("Margin/Holder/ActorR/ActorPanelR/ActorImageR")
+speaker_name = NodePath("Margin/Holder/Dialogue/BG/ActorInfo/ActorLine/ActorName")
+speaker_title = NodePath("Margin/Holder/Dialogue/BG/Title/TitleText")
+dialogue_box = NodePath("Margin/Holder/Dialogue/BG/DialogueBox/DialogueText")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Holder" type="Control" parent="Margin"]
+layout_mode = 2
+
+[node name="ActorL" type="Control" parent="Margin/Holder"]
+layout_mode = 1
+anchor_right = 0.49
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="ActorPanelL" type="Panel" parent="Margin/Holder/ActorL"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ActorImageL" type="TextureRect" parent="Margin/Holder/ActorL/ActorPanelL"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_3jcu7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ActorR" type="Control" parent="Margin/Holder"]
+layout_mode = 1
+anchor_left = 0.51
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="ActorPanelR" type="Panel" parent="Margin/Holder/ActorR"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ActorImageR" type="TextureRect" parent="Margin/Holder/ActorR/ActorPanelR"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_3jcu7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Dialogue" type="Control" parent="Margin/Holder"]
+layout_mode = 1
+anchor_left = 0.1
+anchor_top = 0.54
+anchor_right = 0.9
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="Panel" parent="Margin/Holder/Dialogue"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ActorInfo" type="Panel" parent="Margin/Holder/Dialogue/BG"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.2
+grow_horizontal = 2
+
+[node name="ActorLine" type="MarginContainer" parent="Margin/Holder/Dialogue/BG/ActorInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ActorName" type="Label" parent="Margin/Holder/Dialogue/BG/ActorInfo/ActorLine"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Placeholder Actor"
+autowrap_mode = 2
+
+[node name="Title" type="Control" parent="Margin/Holder/Dialogue/BG"]
+layout_mode = 1
+anchor_left = 0.1
+anchor_top = 0.2
+anchor_right = 0.9
+anchor_bottom = 0.3
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleText" type="Label" parent="Margin/Holder/Dialogue/BG/Title"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 17
+text = "Placeholder Actor Title"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="DialogueBox" type="MarginContainer" parent="Margin/Holder/Dialogue/BG"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.3
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 10
+
+[node name="DialogueText" type="Label" parent="Margin/Holder/Dialogue/BG/DialogueBox"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 20
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget pellentesque lacus, ac aliquam nibh. Phasellus eu elementum metus. Suspendisse justo leo, luctus vel sodales sed, molestie nec sapien. In dignissim purus nec neque imperdiet venenatis. Nulla eu ultricies eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean malesuada sagittis leo. Phasellus dictum luctus pharetra. "
+autowrap_mode = 2
