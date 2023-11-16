@@ -309,10 +309,7 @@ func detected_hit(target):
 func resolve_hit(target):
 		main_node.has_hit = true
 		hit_pause([anims.get_current_animation(),anims.get_current_animation_position()]) 
-		if target.is_in_group("Projectile"):
-			pass
-		else:
-			target.owner.main_node.manage_hurt(current_hitbox_data)
+		target.owner.main_node.manage_hurt(current_hitbox_data)
 	
 func hit_pause(current_anim_data):
 	anims.pause()

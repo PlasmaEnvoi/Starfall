@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bruipd3u8u3o7"]
+[gd_scene load_steps=10 format=3 uid="uid://bruipd3u8u3o7"]
 
 [ext_resource type="Texture2D" uid="uid://b0dtg1ivy8433" path="res://UI/DialogueStuff/TempStuff/ScribeWizard.png" id="1_3jcu7"]
 [ext_resource type="Script" path="res://UI/DialogueStuff/DialogueManager.gd" id="1_6272j"]
 [ext_resource type="Texture2D" uid="uid://cf2ae4kuc40fc" path="res://UI/DialogueStuff/TempStuff/TestAtlas.tres" id="2_i7djd"]
 [ext_resource type="Script" path="res://UI/DialogueStuff/DialogueInfoBase.gd" id="2_omt3i"]
+[ext_resource type="AudioStream" uid="uid://8exulg65rk0d" path="res://Audio/Effects/Starfall - Dialogue Sound.ogg" id="5_03s6d"]
 
 [sub_resource type="Resource" id="Resource_1u42x"]
 script = ExtResource("2_omt3i")
@@ -220,3 +221,6 @@ size_flags_vertical = 1
 theme_override_font_sizes/font_size = 20
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget pellentesque lacus, ac aliquam nibh. Phasellus eu elementum metus. Suspendisse justo leo, luctus vel sodales sed, molestie nec sapien. In dignissim purus nec neque imperdiet venenatis. Nulla eu ultricies eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean malesuada sagittis leo. Phasellus dictum luctus pharetra. "
 autowrap_mode = 2
+
+[node name="DialogueAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_03s6d")

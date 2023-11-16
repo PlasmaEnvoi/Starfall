@@ -2,7 +2,7 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://b81mjnbmyjy86"
+uid="uid://uffp7ul6tgjx"
 path="res://.godot/imported/Starfall_-_Forest.mp3-8974d35826a9eb43d61fdc31dacac578.mp3str"
 
 [deps]
@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/Starfall_-_Forest.mp3-8974d35826a9eb43d61fdc3
 
 [params]
 
-loop=true
-loop_offset=2.0
-bpm=0.0
+loop=false
+loop_offset=0
+bpm=0
 beat_count=0
 bar_beats=4

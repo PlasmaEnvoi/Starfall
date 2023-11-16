@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StageData" load_steps=24 format=3 uid="uid://dr1ynij54lxg1"]
+[gd_resource type="Resource" script_class="StageData" load_steps=23 format=3 uid="uid://dr1ynij54lxg1"]
 
 [ext_resource type="Resource" uid="uid://dwwieefbnj8gv" path="res://Maps/DeepBriar/Trees/BigTree.tres" id="1_cumqv"]
 [ext_resource type="Resource" uid="uid://ct5kbymwgkheq" path="res://Maps/DeepBriar/FloorDeco/Bush1.tres" id="1_du2fg"]
@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://c6nydanjrkvl2" path="res://Maps/DeepBriar/Trees/PlatformTree3.tres" id="4_74amq"]
 [ext_resource type="Resource" uid="uid://d13tujqhunq0l" path="res://Maps/DeepBriar/FloorDeco/Bush4.tres" id="4_lgbew"]
 [ext_resource type="Resource" uid="uid://dcoa70cx80kcq" path="res://Maps/DeepBriar/Trees/PlatformTreeShort.tres" id="5_r40d6"]
+[ext_resource type="Resource" uid="uid://cnk48k7wppspd" path="res://Maps/DeepBriar/FloorDeco/Log1.tres" id="5_u04i8"]
 [ext_resource type="Resource" uid="uid://w32ljqhjsw7v" path="res://Maps/DeepBriar/FloorDeco/Log2.tres" id="6_0galr"]
 [ext_resource type="Resource" uid="uid://beggfv1dgj6k7" path="res://Maps/DeepBriar/Trees/ShortTree.tres" id="6_mty8e"]
 [ext_resource type="Resource" uid="uid://dqrf3gwp6x3gn" path="res://Maps/DeepBriar/FloorDeco/Log3.tres" id="7_jqkll"]
@@ -20,8 +21,6 @@
 [ext_resource type="Resource" uid="uid://b5gige0b502ty" path="res://Maps/DeepBriar/FloorDeco/Rock2.tres" id="9_uf8qd"]
 [ext_resource type="Resource" uid="uid://cwfyxn4yfscs6" path="res://Maps/DeepBriar/FloorDeco/Rock3.tres" id="10_kdx6s"]
 [ext_resource type="Resource" uid="uid://du20sadkbv4bw" path="res://Maps/DeepBriar/FloorDeco/Rock4.tres" id="11_88x4b"]
-[ext_resource type="Resource" uid="uid://cmyjgl22gl7qm" path="res://Maps/DeepBriar/FloorDeco/Light_Fruit.tres" id="14_cf8dj"]
-[ext_resource type="Resource" uid="uid://cl6h4svm0dv7p" path="res://Maps/DeepBriar/FloorDeco/Pumpkin.tres" id="17_3wsc2"]
 [ext_resource type="Resource" uid="uid://bf3rrfy7d3fpg" path="res://Maps/DeepBriar/MovementThings/DandelionBounce.tres" id="21_fot1v"]
 
 [resource]
@@ -43,7 +42,7 @@ horizontal_movement = Array[Resource("res://Maps/StageMovementObject.gd")]([])
 diagonal_movement = Array[Resource("res://Maps/StageMovementObject.gd")]([])
 vertical_movement = Array[Resource("res://Maps/StageMovementObject.gd")]([ExtResource("21_fot1v")])
 gdeco_small = Array[Resource("res://Maps/StageInformation/DecorationInfo.gd")]([ExtResource("8_0phn8"), ExtResource("9_uf8qd"), ExtResource("10_kdx6s"), ExtResource("11_88x4b")])
-gdeco_medium = Array[Resource("res://Maps/StageInformation/DecorationInfo.gd")]([ExtResource("1_du2fg"), ExtResource("2_a2il5"), ExtResource("3_i3161"), ExtResource("4_lgbew"), ExtResource("14_cf8dj"), ExtResource("6_0galr"), ExtResource("7_jqkll"), ExtResource("17_3wsc2")])
+gdeco_medium = Array[Resource("res://Maps/StageInformation/DecorationInfo.gd")]([ExtResource("1_du2fg"), ExtResource("2_a2il5"), ExtResource("3_i3161"), ExtResource("4_lgbew"), ExtResource("5_u04i8"), ExtResource("6_0galr"), ExtResource("7_jqkll")])
 gdeco_large = Array[Resource("res://Maps/StageInformation/DecorationInfo.gd")]([ExtResource("1_cumqv"), ExtResource("2_23tue"), ExtResource("3_r1mfv"), ExtResource("4_74amq"), ExtResource("5_r40d6"), ExtResource("6_mty8e"), ExtResource("7_tsh8s"), ExtResource("8_sbsk4")])
 air_deco = Array[Resource("res://Maps/StageInformation/DecorationInfo.gd")]([])
 d1_enemies = Array[PackedScene]([ExtResource("1_jljpj")])

@@ -28,17 +28,12 @@ func _ready():
 func establish_data(projectile_data: ProjectileData):
 	print(projectile_data.charge)
 	projectile_info = projectile_data.duplicate()
-	proj_vel =( projectile_info.proj_vel * (1 + projectile_info.charge/100))
+	proj_vel = projectile_info.proj_vel * (1 + projectile_info.charge/100)
 	if facing_right == false:
 		proj_vel.x *= -1
 	hitbox_info = projectile_info.proj_info.duplicate()
 	point_dir = projectile_info.points_at_vel
 	hitbox_info.move_damage *= (.75 + projectile_info.charge/100)
-	if facing_right == false:
-		hitbox_info.ground_vel.x *= -1
-		hitbox_info.air_vel.x *= -1
-		hitbox_info.down_vel.x *= -1
-		hitbox_info.hurt_vel.x *= -1
 	
 #	kill_timer = Timer.new()
 

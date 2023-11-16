@@ -8,6 +8,14 @@ extends Control
 @export var speaker_title: Label
 @export var dialogue_box: Label
 
+# Dialogue Audio Stuff
+#different positions (in seconds) of the audio track in dialogueAudioPlayer
+var dialogueAudioPositions = [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0]
+#pitches the audio up and down at random
+var audioPitchRange = [0.0,3.0]
+#random number generator for generating random audio positions and pitches
+var audioRNG = RandomNumberGenerator.new()
+
 @export var current_dialogue: Dialogue
 
 func _ready():
@@ -69,11 +77,21 @@ func advance_dialogue():
 	
 	for letter in set_script.current_line:
 		dialogue_array.append(letter)
+		
 	
 	for character in dialogue_array:
 		new_dialogue += character
 		dialogue_box.text = new_dialogue
+		#random number generator to determine pitch of the audio
+		var pitch = audioRNG.randf_range(audioPitchRange[0], audioPitchRange[1])
+		#random number generator to determine which vowel will play from the audio file
+		var audioPosition = audioRNG.randi_range(0, dialogueAudioPositions.size()-1)
+		#these play audioplayer - sets the pitch first then plays at random position
+		$DialogueAudioPlayer.set_pitch_scale(pitch)
+		$DialogueAudioPlayer.play(dialogueAudioPositions[audioPosition])
 		await get_tree().create_timer(.01).timeout
-	
+		#stops the audioplayer after .01 seconds
+		$DialogueAudioPlayer.stop()
+		
 func end_dialogue():
 	hide()
