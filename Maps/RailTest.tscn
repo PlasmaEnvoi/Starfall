@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://rrgkc0namv45"]
+
+[sub_resource type="Curve3D" id="Curve3D_kxwac"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.00106108, -0.0162642, 0.328141, 0, 0, 0, 0, 0, 0, -0.189415, 0.0559015, 2.22692, 0, 0, 0, 0, 0, 0, -0.428502, 0.414713, 6.26255, 0, 0, 0, 0, 0, 0, -0.627823, 0.726723, 9.7053, 0, 0, 0, 0, 0, 0, 1.36924, 0.726685, 10.1931, 0, 0, 0, 0, 0, 0, 8.46144, 0.726685, 8.32846, 0, 0, 0, 0, 0, 0, 7.86209, 0.726685, 5.16528, 0, 0, 0, 0, 0, 0, 7.16286, 0.726685, 1.40276, 0, 0, 0, 0, 0, 0, 7.96198, 0.726685, -1.69384),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 9
+
+[node name="FoliageController" type="Node3D"]
+
+[node name="FoliagePath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_kxwac")
+
+[node name="Vine" type="CSGPolygon3D" parent="FoliagePath"]
+polygon = PackedVector2Array(0, 0, 0, 0.1, 0.505, 0.1, 1, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="RailL" type="CSGPolygon3D" parent="FoliagePath"]
+polygon = PackedVector2Array(0, 0, 0, 0.21, 0.335, 0.205, 0.395, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 1
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false

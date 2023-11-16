@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dvssckepndqfj"]
+[gd_scene load_steps=11 format=3 uid="uid://dvssckepndqfj"]
 
 [ext_resource type="Script" path="res://TestStuff/TestWorld.gd" id="1_cwv6y"]
 [ext_resource type="PackedScene" uid="uid://cojb87akn5soe" path="res://TestStuff/MarcyCharacterBody.tscn" id="1_p1te6"]
@@ -9,21 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://chjcr5rdfdm3c" path="res://Enemies/EnemyAITypes/Brawler.tscn" id="5_edcc3"]
 [ext_resource type="PackedScene" uid="uid://brt0qn4o48dmj" path="res://Maps/map_base.tscn" id="5_l0sol"]
 [ext_resource type="AudioStream" uid="uid://b81mjnbmyjy86" path="res://Audio/Tracks/Starfall_-_Forest.mp3" id="8_7tyrw"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1sqjs"]
-sky_top_color = Color(0.239216, 0.298039, 0.207843, 1)
-sky_horizon_color = Color(0.0392157, 0.0745098, 0.0470588, 1)
-ground_bottom_color = Color(0, 0, 0, 1)
-ground_horizon_color = Color(0.0823529, 0.117647, 0.0862745, 1)
-sun_angle_max = 9.45
-sun_curve = 0.243676
-
-[sub_resource type="Sky" id="Sky_rrum3"]
-sky_material = SubResource("ProceduralSkyMaterial_1sqjs")
-
-[sub_resource type="Environment" id="Environment_roer2"]
-background_mode = 2
-sky = SubResource("Sky_rrum3")
+[ext_resource type="Environment" uid="uid://b2cjitqvove5x" path="res://Maps/DeepBriarEnv.tres" id="9_4btmh"]
 
 [node name="WorldTest" type="Node3D" node_paths=PackedStringArray("char_speed", "air_actions", "wj_count", "up_buffer", "down_buffer", "right_buffer", "left_buffer", "marcy", "map_gen", "room_id_label")]
 script = ExtResource("1_cwv6y")
@@ -68,7 +54,7 @@ visible = false
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_roer2")
+environment = ExtResource("9_4btmh")
 
 [node name="TestInfo" type="MarginContainer" parent="."]
 anchors_preset = 15

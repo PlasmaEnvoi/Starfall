@@ -10,4 +10,4 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.622551, 0)
 light_color = Color(0.498039, 0.701961, 0.713726, 1)
 light_energy = 6.69
-omni_range = 16.5242
+omni_range = 18.1867

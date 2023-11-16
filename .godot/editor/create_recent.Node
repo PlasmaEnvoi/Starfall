@@ -1,9 +1,13 @@
+CSGPolygon3D
+CSGCylinder3D
+Path3D
+MeshInstance3D
+FogVolume
 CollisionShape3D
 Area3D
 BoneAttachment3D
 CPUParticles3D
 Node3D
-MeshInstance3D
 Control
 TextureRect
 MarginContainer
@@ -26,7 +30,3 @@ Marker3D
 VBoxContainer
 ProgressBar
 SubViewport
-Sprite3D
-DirectionalLight3D
-TileMap
-GridContainer
