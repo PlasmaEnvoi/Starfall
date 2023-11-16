@@ -7,6 +7,8 @@ extends Control
 @export var speaker_name: Label
 @export var speaker_title: Label
 @export var dialogue_box: Label
+var dialogue_active: bool = false
+var currently_advancing = false
 
 # Dialogue Audio Stuff
 #different positions (in seconds) of the audio track in dialogueAudioPlayer
@@ -17,20 +19,28 @@ var audioPitchRange = [0.0,3.0]
 var audioRNG = RandomNumberGenerator.new()
 
 @export var current_dialogue: Dialogue
+var skip_crawl = false
 
 func _ready():
 	hide()
 	
 func _process(delta):
-	if Input.is_action_just_pressed("normal_attack"):
-		if current_script.is_empty():
-			end_dialogue()
-		else:
-			advance_dialogue()
+	if Input.is_action_just_pressed("normal_attack") && dialogue_active == true:
+		if currently_advancing == false:
+			if current_script.is_empty():
+				print("Ending")
+				end_dialogue()
+			else:
+				print("Next Panel")
+				advance_dialogue()
+		else: 
+			print("Skipping")
+			skip_crawl = true
 	if Input.is_action_just_pressed("special_attack"):
 		open_dialogue(test_script)
 
 func open_dialogue(new_dialogue_prompt: Array[Dialogue]):
+	dialogue_active = true
 	current_script.clear()
 	current_script = new_dialogue_prompt.duplicate()
 	advance_dialogue()
@@ -74,24 +84,25 @@ func advance_dialogue():
 	var letter_count = 0
 	var new_dialogue = ""
 	var dialogue_array = []
-	
-	for letter in set_script.current_line:
-		dialogue_array.append(letter)
-		
-	
-	for character in dialogue_array:
+	currently_advancing = true
+	for character in set_script.current_line:
+		if skip_crawl == false:
+			#random number generator to determine which vowel will play from the audio file
+			var pitch = audioRNG.randf_range(audioPitchRange[0], audioPitchRange[1])
+			var audioPosition = audioRNG.randi_range(0, dialogueAudioPositions.size()-1)
+			#these play audioplayer - sets the pitch first then plays at random position
+			$DialogueAudioPlayer.set_pitch_scale(pitch)
+			#random number generator to determine pitch of the audio
+			$DialogueAudioPlayer.play(dialogueAudioPositions[audioPosition])
+			await get_tree().create_timer(.01).timeout
+			#stops the audioplayer after .01 seconds
+			$DialogueAudioPlayer.stop()
+			
 		new_dialogue += character
 		dialogue_box.text = new_dialogue
-		#random number generator to determine pitch of the audio
-		var pitch = audioRNG.randf_range(audioPitchRange[0], audioPitchRange[1])
-		#random number generator to determine which vowel will play from the audio file
-		var audioPosition = audioRNG.randi_range(0, dialogueAudioPositions.size()-1)
-		#these play audioplayer - sets the pitch first then plays at random position
-		$DialogueAudioPlayer.set_pitch_scale(pitch)
-		$DialogueAudioPlayer.play(dialogueAudioPositions[audioPosition])
-		await get_tree().create_timer(.01).timeout
-		#stops the audioplayer after .01 seconds
-		$DialogueAudioPlayer.stop()
+	currently_advancing = false
+	skip_crawl = false
 		
 func end_dialogue():
 	hide()
+	dialogue_active = false

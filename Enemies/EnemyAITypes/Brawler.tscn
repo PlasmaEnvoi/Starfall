@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Enemies/EnemyAITypes/BrawlerBase.gd" id="1_xyyrh"]
 [ext_resource type="PackedScene" uid="uid://cioa87eff1yli" path="res://Enemies/EnemyAITypes/standard_hurt_manager.tscn" id="2_6xuqe"]
-[ext_resource type="PackedScene" path="res://Enemies/TestViking/Dreng.tscn" id="2_nr2fu"]
+[ext_resource type="PackedScene" uid="uid://b6smw5r26amiu" path="res://Enemies/DeepBriar/Imperials/Imperial.tscn" id="2_nr2fu"]
 [ext_resource type="PackedScene" uid="uid://cvkvracdnwsi2" path="res://UI/HealthBar.tscn" id="4_akokp"]
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_wjkbn"]

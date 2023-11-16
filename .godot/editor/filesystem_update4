@@ -6,8 +6,5 @@ res://TestStuff/SwordSlashTest.gdshader
 res://TestStuff/test.gdshader
 res://Disintegrate.tres
 res://TestStuff/MarcyCharacterBody.tscn
-res://TestStuff/TestChars/SpearNeutralSpecial.tscn
 res://TestStuff/TestChars/MarcySpearNBoard.tscn
-res://Enemies/DeepBriar/Imperials/Imperial.tscn
-res://TestStuff/TestChars/Charge.tscn
 res://UI/DialogueStuff/DialogueBase.tscn

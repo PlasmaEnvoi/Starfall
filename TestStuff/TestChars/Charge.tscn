@@ -99,7 +99,7 @@ charge_circle = NodePath("ChargeCircle")
 
 [node name="ChargeParticles" type="CPUParticles3D" parent="."]
 amount = 24
-lifetime = 0.5
+lifetime = 0.45
 randomness = 1.0
 lifetime_randomness = 1.0
 mesh = SubResource("PlaneMesh_5qouw")
