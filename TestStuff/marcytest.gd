@@ -7,14 +7,17 @@ extends CharacterBody3D
 @export var floor_sensor: RayCast3D
 @export var hurt_manager: Node3D
 
-@export_group("UI Stuff")
-@export var shop: Control
-var shop_open = false
-
 @export_group("Info")
-@export var health: int
+@export var health: int = 100
+@export var max_health: int = 100
+@export var aether = 0
 
-var walk_speed = 8.0
+@export_group("Interacting Stuff")
+@export var shop: Control
+@export var dialogue: Control
+var interacting = false
+
+var walk_speed = 6.0
 var acceleration = 25
 var friction = 30
 var drift_speed = 8.0
@@ -39,6 +42,7 @@ var wj_height = 14
 var current_wj_count = 1
 var input_dir
 var direction
+
 
 var in_hitpause: bool = false
 var is_hurt = false
@@ -76,7 +80,6 @@ var lock_input = false
 var current_interact
 
 @export_group("Stats")
-var essence = 90
 @export var strength: int = 1
 @export var agility: int = 1
 @export var endurance: int = 1
@@ -84,14 +87,25 @@ var essence = 90
 @export_group("Audio Stuff")
 @export var audio_player: AudioStreamPlayer3D
 
+@export_group("Hit Stuff")
+@export var armored = false
+
+@export_group("Overrides")
+@export var override_landing: Callable
+@export var override_hit: Callable
+@export var override_hurt: Callable
+
 signal grounded(bool)
 signal just_jumped
 signal play_anims
-
+signal aether_changed
+signal health_update
 
 func _ready():
+	
 	shop.player = self
 	shop.stock_store(shop.stock)
+	dialogue.dialogue_over.connect(end_dialogue)
 	hurt_manager.hurt_time_end.connect(end_hitstun)
 	hurt_manager.update_anim.connect(anim_manager)
 	
@@ -110,6 +124,7 @@ func _ready():
 	anims = char_visuals.anims
 	unit = char_visuals
 	init_pos = char_visuals.position
+	update_aether(0)
 	
 func landing(land_check):
 	air_actions = max_air_actions
@@ -189,7 +204,9 @@ func _process(delta):
 		charge += 35 * delta
 		print(charge)
 	
-	if Input.is_action_just_pressed("special_attack") && shop_open == true:
+	if Input.is_action_just_pressed("special_attack") && interacting == true:
+		n_special_release_buffer = 0
+		charge = 0
 		close_shop()
 
 func _physics_process(delta):
@@ -398,7 +415,10 @@ func _flip():
 func end_hitstun():
 	is_hurt = false
 	ctrl = true
+	
 	char_visuals.animtree.active = true
+	unit.return_neutral()
+	
 	if is_on_floor():
 		play_anims.emit("Brake", "")
 	else:
@@ -416,6 +436,7 @@ func manage_hurt(hit_info : Move):
 
 func mod_health(damage):
 	health -= damage if health > damage else health
+	health_update.emit()
 
 func interaction_check(check, interactive):
 	attacks_active = check
@@ -428,16 +449,32 @@ func open_shop():
 	attacks_active = false
 	lock_input = true
 	direction = (Vector2.ZERO)
-	shop_open = true
+	interacting = true
 	shop.active = true
-	shop._open_shop(essence)
+	shop._open_shop(aether)
 
 func close_shop():
 	print("Attempting Close")
 	attacks_active = true
 	lock_input = false
-	shop_open = false
+	interacting = false
 	shop._hide_shop()
+	
+func start_dialogue(npc):
+	dialogue.open_dialogue(npc.current_dialogue())
+	attacks_active = false
+	lock_input = true
+	direction = (Vector2.ZERO)
+	interacting = true
+
+func end_dialogue():
+	attacks_active = true
+	lock_input = false
+	interacting = false
 
 func play_sound(type, strength):
 	audio_player.play_sound(type, strength)
+
+func update_aether(count):
+	aether += count
+	aether_changed.emit()

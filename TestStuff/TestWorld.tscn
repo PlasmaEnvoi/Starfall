@@ -11,21 +11,16 @@
 [ext_resource type="AudioStream" uid="uid://b81mjnbmyjy86" path="res://Audio/Tracks/Starfall_-_Forest.mp3" id="8_7tyrw"]
 [ext_resource type="Environment" uid="uid://b2cjitqvove5x" path="res://Maps/DeepBriarEnv.tres" id="9_4btmh"]
 
-[node name="WorldTest" type="Node3D" node_paths=PackedStringArray("char_speed", "air_actions", "wj_count", "up_buffer", "down_buffer", "right_buffer", "left_buffer", "marcy", "map_gen", "room_id_label")]
+[node name="WorldTest" type="Node3D" node_paths=PackedStringArray("aether_count", "marcy", "map_gen", "room_id_label", "health_bar")]
 script = ExtResource("1_cwv6y")
-char_speed = NodePath("TestInfo/InfoBox/Speed")
-air_actions = NodePath("TestInfo/InfoBox/AirActions")
-wj_count = NodePath("TestInfo/InfoBox/WJCount")
-up_buffer = NodePath("TestInfo/InfoBox/DirectionBufferU")
-down_buffer = NodePath("TestInfo/InfoBox/DirectionBufferD")
-right_buffer = NodePath("TestInfo/InfoBox/DirectionBufferR")
-left_buffer = NodePath("TestInfo/InfoBox/DirectionBufferL")
+aether_count = NodePath("TestInfo/InfoBox/AetherCount")
 marcy = NodePath("TestMarcy")
 map_gen = NodePath("MapBase")
 room_id_label = NodePath("TestInfo/RoomID")
 exit_scene = ExtResource("2_ogkwt")
 shop_scene = ExtResource("3_yyqc0")
 current_biome_info = ExtResource("2_b71tc")
+health_bar = NodePath("TestInfo/InfoBox/HealthBar")
 brawler_ai = ExtResource("5_edcc3")
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("cam_target")]
@@ -70,71 +65,26 @@ theme_override_constants/margin_bottom = 20
 [node name="InfoBox" type="VBoxContainer" parent="TestInfo"]
 layout_mode = 2
 
-[node name="Speed" type="Label" parent="TestInfo/InfoBox"]
+[node name="HealthBar" type="ProgressBar" parent="TestInfo/InfoBox"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 25
-text = "SPEED: 99
-"
+size_flags_horizontal = 0
+size_flags_vertical = 4
 
-[node name="AirActions" type="Label" parent="TestInfo/InfoBox"]
+[node name="AetherCount" type="Label" parent="TestInfo/InfoBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 25
-text = "AIR ACTIONS: 99
-"
-
-[node name="WJCount" type="Label" parent="TestInfo/InfoBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 25
-text = "CURRENT WJ: 0"
-
-[node name="DirectionBufferU" type="Label" parent="TestInfo/InfoBox"]
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 25
-text = "UP BUFFER: 0.0"
-
-[node name="DirectionBufferD" type="Label" parent="TestInfo/InfoBox"]
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 25
-text = "DOWN BUFFER: 0.0"
-
-[node name="DirectionBufferL" type="Label" parent="TestInfo/InfoBox"]
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 25
-text = "LEFT BUFFER: 0.0"
-
-[node name="DirectionBufferR" type="Label" parent="TestInfo/InfoBox"]
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 25
-text = "RIGHT BUFFER: 0.0"
+text = "ÆTHER: 99"
 
 [node name="RoomID" type="Label" parent="TestInfo"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 55
 text = "99"
 horizontal_alignment = 2
 

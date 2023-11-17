@@ -21,13 +21,15 @@ rings = 1
 [sub_resource type="ViewportTexture" id="ViewportTexture_6c3ka"]
 viewport_path = NodePath("HealthBarDisplay/SubViewport")
 
-[node name="BrawlerBase" type="CharacterBody3D" node_paths=PackedStringArray("hurt_manager", "health_bar", "bar_display") groups=["Enemy"]]
+[node name="BrawlerBase" type="CharacterBody3D" node_paths=PackedStringArray("hurt_manager", "health_bar", "stagger", "bar_display", "hit_time_label") groups=["Enemy"]]
 script = ExtResource("1_xyyrh")
 hurt_manager = NodePath("StandardHurtManager")
 unit_type = ExtResource("2_nr2fu")
-health_bar = NodePath("HealthBarDisplay/SubViewport/HealthBar/Bar")
+health_bar = NodePath("HealthBarDisplay/SubViewport/HealthBar/HealthBar")
+stagger = NodePath("HealthBarDisplay/SubViewport/HealthBar/HealthBar/Stagger")
 bar_display = NodePath("HealthBarDisplay")
 unit_scale = Vector3(6, 6, 6)
+hit_time_label = NodePath("HealthBarDisplay/SubViewport/HealthBar/Hittime")
 
 [node name="StandardHurtManager" parent="." instance=ExtResource("2_6xuqe")]
 

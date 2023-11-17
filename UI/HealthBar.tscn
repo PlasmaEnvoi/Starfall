@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvkvracdnwsi2"]
+[gd_scene load_steps=5 format=3 uid="uid://cvkvracdnwsi2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfx46"]
 bg_color = Color(0.356863, 0, 0.054902, 1)
@@ -14,6 +14,10 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ku0u5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_typ8f"]
+
 [node name="HealthBar" type="Control"]
 layout_mode = 3
 anchors_preset = 8
@@ -24,20 +28,47 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Bar" type="ProgressBar" parent="."]
+[node name="HealthBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(150, 20)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -67.0
-offset_top = -8.0
-offset_right = 67.0
-offset_bottom = 8.0
+offset_left = -20.0
+offset_top = -0.5
+offset_right = 20.0
+offset_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_sfx46")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ukosr")
 value = 50.0
 show_percentage = false
+
+[node name="Stagger" type="HScrollBar" parent="HealthBar"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/scroll = SubResource("StyleBoxEmpty_ku0u5")
+theme_override_styles/scroll_focus = SubResource("StyleBoxEmpty_typ8f")
+value = 40.0
+
+[node name="Hittime" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = -20.0
+offset_top = 32.0
+offset_right = 20.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 31
+text = "99"
+horizontal_alignment = 1

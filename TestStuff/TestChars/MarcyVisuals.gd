@@ -73,6 +73,9 @@ class_name MarcyForm
 @export_group("AttackFX")
 @export var slash: Node3D
 
+@export_category("Attack Data")
+
+
 
 signal hitframe
 signal play_sound
@@ -80,6 +83,7 @@ signal play_sound
 func _ready():
 	anims.animation_finished.connect(_end_anims)
 	hitbox_a.area_entered.connect(detected_hit)
+	animtree.active = true
 	
 func _process(delta):
 	if main_node.charge >= 33:
@@ -90,8 +94,8 @@ func _process(delta):
 		charge_effect.stop_charge()
 func manage_anims(anim, input):
 	if anim_lock == false:
-		anims.stop()
-		
+#		anims.stop()
+		anims.call_deferred("stop")
 #	print(anim,  " - ", input)
 	
 #	print(anims.get_current_animation())
@@ -128,7 +132,6 @@ func manage_anims(anim, input):
 				anim_lock = true
 				animtree.active = false
 				anims.play("Marcy_Spear_Dash")
-			
 		"Airmove":
 			if anim_lock == false:
 				animtree.set("parameters/GroundAirBlend/blend_amount", 1)
@@ -309,7 +312,7 @@ func detected_hit(target):
 func resolve_hit(target):
 		main_node.has_hit = true
 		hit_pause([anims.get_current_animation(),anims.get_current_animation_position()]) 
-		if target.is_in_group("Projectile"):
+		if target.owner.is_in_group("Projectile") || target.is_in_group("Projectile"):
 			pass
 		else:
 			target.owner.main_node.manage_hurt(current_hitbox_data)

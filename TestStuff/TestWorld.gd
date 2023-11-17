@@ -1,12 +1,6 @@
 extends Node3D
 
-@export var char_speed: Label
-@export var air_actions: Label
-@export var wj_count: Label
-@export var up_buffer: Label
-@export var down_buffer: Label
-@export var right_buffer: Label
-@export var left_buffer: Label
+@export var aether_count: Label
 @export var marcy: Node3D
 @export var map_gen: Node3D
 @export var room_id_label: Label
@@ -25,6 +19,7 @@ extends Node3D
 var wave_count = 0
 var exit_room = 99
 var shop_room = 99
+@export var health_bar: ProgressBar
 var current_hostile_room = 99
 
 @export var enemy_rooms: Array
@@ -38,17 +33,18 @@ var current_hostile_room = 99
 func _ready():
 	map_gen.finished_base.connect(populate_map)
 	map_gen.generate_map(current_biome_info.stage_size)
-	await map_gen.finished_base
-
-func _process(delta):
-	char_speed.text = "SPEED: " + str(marcy.velocity)
-	air_actions.text = "AIR ACTIONS: " + str(marcy.air_actions) +  "/" + str(marcy.max_air_actions)
-	wj_count.text = "Can Cancel: " + str(marcy.can_cancel)
-	up_buffer.text = "UP BUFFER: " + str(marcy.u_buffer)
-	down_buffer.text = "DOWN BUFFER: " + str(marcy.d_buffer)
-	left_buffer.text = "LEFT BUFFER: " + str(marcy.l_buffer)
-	right_buffer.text = "RIGHT BUFFER: " + str(marcy.r_buffer)
-
+	marcy.aether_changed.connect(update_aether_label)
+	marcy.health_update.connect(update_health_bar)
+	update_aether_label()
+	update_health_bar()
+	
+func update_aether_label():
+	aether_count.text = "Æther: " + str(marcy.aether)
+	
+func update_health_bar():
+	health_bar.max_value = marcy.max_health
+	health_bar.value = marcy.health
+	
 func populate_map():
 #	print("Attempting Populate")
 #Checking cells for cells with floors
@@ -124,6 +120,7 @@ func populate_map():
 			var object = vert_mover.mover_scene.instantiate()
 			current_cell.floor_spawn.add_child(object)
 			object.rotation_degrees.y += randi_range(vert_mover.min_rotation,vert_mover.max_rotation)
+			object.vert_severity = drop_cells.size()
 			object.global_scale (vert_mover.min_scale * randf_range(1 -vert_mover.scale_variation, 1 + vert_mover.scale_variation))
 #		print("Shaft Cell: ", shaft_cell)
 #		print("Drop Cells: ", drop_cells)
@@ -235,6 +232,7 @@ func begin_hostile_room():
 			spawned_enemy.death_info.connect(unit_death)
 			if cell.room_id == current_hostile_room && cell.floor != null:
 				cell.floor_spawn.add_child(spawned_enemy)
+				spawned_enemy.aether = (spawned_enemy.unit.aether_drop_mod * current_biome_info.stage_difficulty) + randi_range(0,10) 
 				spawned_enemy.position.x += randf_range(-4,4)
 				spawned_enemy.add_to_group("Enemy")
 				if randf() < .5:
@@ -245,6 +243,7 @@ func begin_hostile_room():
 				enemy_count -= 1
 
 func unit_death(unit):
+	marcy.update_aether(unit.aether)
 	room_enemies.erase(unit)
 	print(room_enemies)
 	if room_enemies.is_empty():

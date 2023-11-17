@@ -1,0 +1,194 @@
+[gd_scene load_steps=22 format=3 uid="uid://b885wc3dkmeoe"]
+
+[ext_resource type="Texture2D" uid="uid://qtqvxdcendi1" path="res://NPCs/AlaniPlaceholder.png" id="1_flqam"]
+[ext_resource type="Script" path="res://NPCs/InteractionPoint.gd" id="1_uourf"]
+[ext_resource type="Script" path="res://NPCs/Alani.gd" id="2_8qql6"]
+[ext_resource type="Texture2D" uid="uid://defrxf5b4qcf1" path="res://NPCs/MarcyPlaceholder.png" id="3_adwqt"]
+[ext_resource type="Script" path="res://UI/DialogueStuff/DialogueInfoBase.gd" id="4_tnwog"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrdi1"]
+atlas = ExtResource("3_adwqt")
+region = Rect2(-8, -8, 952, 1440)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2pjl"]
+atlas = ExtResource("1_flqam")
+region = Rect2(8, 8, 592, 800)
+
+[sub_resource type="Resource" id="Resource_ysdaq"]
+script = ExtResource("4_tnwog")
+actor_1_portrait = SubResource("AtlasTexture_mrdi1")
+actor_1_name = "Marcy"
+actor_1_title = "Civilian Standing Militia Enomotarch"
+actor_1_expression = 0
+actor_2_portrait = SubResource("AtlasTexture_t2pjl")
+actor_2_name = "Alani"
+actor_2_title = "Archmage of the Aeristol Empire"
+actor_2_expression = 0
+current_line = "And here's the woman of the hour! How may I help you, madam?"
+current_speaker = 1
+
+[sub_resource type="Resource" id="Resource_e465e"]
+script = ExtResource("4_tnwog")
+actor_1_portrait = SubResource("AtlasTexture_mrdi1")
+actor_1_name = "Marcy"
+actor_1_title = "Civilian Standing Militia Enomotarch"
+actor_1_expression = 0
+actor_2_portrait = SubResource("AtlasTexture_t2pjl")
+actor_2_name = "Alani"
+actor_2_title = "Archmage of the Aeristol Empire"
+actor_2_expression = 0
+current_line = "..."
+current_speaker = 0
+
+[sub_resource type="Resource" id="Resource_eba0a"]
+script = ExtResource("4_tnwog")
+actor_1_portrait = SubResource("AtlasTexture_mrdi1")
+actor_1_name = "Marcy"
+actor_1_title = "Civilian Standing Militia Enomotarch"
+actor_1_expression = 0
+actor_2_portrait = SubResource("AtlasTexture_t2pjl")
+actor_2_name = "Alani"
+actor_2_title = "Archmage of the Aeristol Empire"
+actor_2_expression = 0
+current_line = "You greet me in this manner even after I caused such harm to you...?"
+current_speaker = 0
+
+[sub_resource type="Resource" id="Resource_xb3wq"]
+script = ExtResource("4_tnwog")
+actor_1_portrait = SubResource("AtlasTexture_mrdi1")
+actor_1_name = "Marcy"
+actor_1_title = "Civilian Standing Militia Enomotarch"
+actor_1_expression = 0
+actor_2_portrait = SubResource("AtlasTexture_t2pjl")
+actor_2_name = "Alani"
+actor_2_title = "Archmage of the Aeristol Empire"
+actor_2_expression = 0
+current_line = "I do, yes! Why wouldn't I?"
+current_speaker = 1
+
+[sub_resource type="Resource" id="Resource_s0mgw"]
+script = ExtResource("4_tnwog")
+actor_1_portrait = SubResource("AtlasTexture_mrdi1")
+actor_1_name = "Marcy"
+actor_1_title = "Civilian Standing Militia Enomotarch"
+actor_1_expression = 0
+actor_2_portrait = SubResource("AtlasTexture_t2pjl")
+actor_2_name = "Alani"
+actor_2_title = "Archmage of the Aeristol Empire"
+actor_2_expression = 0
+current_line = "...forgive me. I am at a loss for words."
+current_speaker = 0
+
+[sub_resource type="Resource" id="Resource_q0xy5"]
+script = ExtResource("4_tnwog")
+actor_1_portrait = SubResource("AtlasTexture_mrdi1")
+actor_1_name = "Marcy"
+actor_1_title = "Civilian Standing Militia Enomotarch"
+actor_1_expression = 0
+actor_2_portrait = SubResource("AtlasTexture_t2pjl")
+actor_2_name = "Alani"
+actor_2_title = "Archmage of the Aeristol Empire"
+actor_2_expression = 0
+current_line = "No worries! If It would be simpler for you to imagine that never happened then I can't blame you for it. To kill someone is a hard experience for many."
+current_speaker = 1
+
+[sub_resource type="Resource" id="Resource_1ux1f"]
+script = ExtResource("4_tnwog")
+actor_1_portrait = SubResource("AtlasTexture_mrdi1")
+actor_1_name = "Marcy"
+actor_1_title = "Civilian Standing Militia Enomotarch"
+actor_1_expression = 0
+actor_2_portrait = SubResource("AtlasTexture_t2pjl")
+actor_2_name = "Alani"
+actor_2_title = "Archmage of the Aeristol Empire"
+actor_2_expression = 0
+current_line = "..."
+current_speaker = 0
+
+[sub_resource type="Resource" id="Resource_mswpc"]
+script = ExtResource("4_tnwog")
+actor_1_portrait = SubResource("AtlasTexture_mrdi1")
+actor_1_name = "Marcy"
+actor_1_title = "Civilian Standing Militia Enomotarch"
+actor_1_expression = 0
+actor_2_portrait = SubResource("AtlasTexture_t2pjl")
+actor_2_name = "Alani"
+actor_2_title = "Archmage of the Aeristol Empire"
+actor_2_expression = 0
+current_line = "But I do mean it when i say that there's no issue! From what I have figured out, this may even be better for my research than I could even imagine!"
+current_speaker = 1
+
+[sub_resource type="Resource" id="Resource_bdv68"]
+script = ExtResource("4_tnwog")
+actor_1_portrait = SubResource("AtlasTexture_mrdi1")
+actor_1_name = "Marcy"
+actor_1_title = "Civilian Standing Militia Enomotarch"
+actor_1_expression = 0
+actor_2_portrait = SubResource("AtlasTexture_t2pjl")
+actor_2_name = "Alani"
+actor_2_title = "Archmage of the Aeristol Empire"
+actor_2_expression = 0
+current_line = "(She simply must be insane. What sort of response is this?)"
+current_speaker = 0
+
+[sub_resource type="Resource" id="Resource_r4sbm"]
+script = ExtResource("4_tnwog")
+actor_1_portrait = SubResource("AtlasTexture_mrdi1")
+actor_1_name = "Marcy"
+actor_1_title = "Civilian Standing Militia Enomotarch"
+actor_1_expression = 0
+actor_2_portrait = SubResource("AtlasTexture_t2pjl")
+actor_2_name = "Alani"
+actor_2_title = "Archmage of the Aeristol Empire"
+actor_2_expression = 0
+current_line = "Well... alright. In that case, I thank you for your composure. I haven't even gotten your name, please pardon my manners. "
+current_speaker = 0
+
+[sub_resource type="Resource" id="Resource_mtc40"]
+script = ExtResource("4_tnwog")
+actor_1_portrait = SubResource("AtlasTexture_mrdi1")
+actor_1_name = "Marcy"
+actor_1_title = "Civilian Standing Militia Enomotarch"
+actor_1_expression = 0
+actor_2_portrait = SubResource("AtlasTexture_t2pjl")
+actor_2_name = "Alani"
+actor_2_title = "Archmage of the Aeristol Empire"
+actor_2_expression = 0
+current_line = "My name is Alani! I am an archmage from the Aeristol kingdom!"
+current_speaker = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bqm26"]
+transparency = 1
+albedo_texture = ExtResource("1_flqam")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e5lll"]
+material = SubResource("StandardMaterial3D_bqm26")
+size = Vector2(2, 2.485)
+orientation = 2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cgyu1"]
+height = 2.82329
+radius = 1.33667
+
+[node name="NPCTest" type="Node3D" node_paths=PackedStringArray("interact_object", "player_interaction")]
+script = ExtResource("1_uourf")
+interact_object = NodePath("Alani")
+player_interaction = NodePath("PlayerInteract")
+
+[node name="Alani" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12082, 0)
+script = ExtResource("2_8qql6")
+intro_dialogue = Array[ExtResource("4_tnwog")]([SubResource("Resource_ysdaq"), SubResource("Resource_e465e"), SubResource("Resource_eba0a"), SubResource("Resource_xb3wq"), SubResource("Resource_s0mgw"), SubResource("Resource_q0xy5"), SubResource("Resource_1ux1f"), SubResource("Resource_mswpc"), SubResource("Resource_bdv68"), SubResource("Resource_r4sbm"), SubResource("Resource_mtc40")])
+used_dialogue = Array[Resource("res://UI/DialogueStuff/DialoguePool.gd")]([null])
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Alani"]
+mesh = SubResource("PlaneMesh_e5lll")
+skeleton = NodePath("../..")
+
+[node name="PlayerInteract" type="Area3D" parent="."]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerInteract"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09767, 0.716549)
+shape = SubResource("CylinderShape3D_cgyu1")

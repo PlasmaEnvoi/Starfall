@@ -6,8 +6,9 @@ class_name EnemyUnit
 @export var main_node: CharacterBody3D
 @export var unit_name: String
 @export var unit_weight: int
-@export var base_health: int
-@export var max_health: int
+@export var base_health: float
+@export var max_health: float
+@export var stagger_percentage: float
 @export var down_time: float
 @export var unit_visuals: GruntVisuals
 @export var anim_lock: bool = false
@@ -45,6 +46,9 @@ class_name EnemyUnit
 @export_group("Attacks")
 @export var attack_actions: Array[String]
 
+@export_group("Drops")
+@export var aether_drop_mod: int = 2
+
 @export_group("Signals")
 signal attack_possible
 signal attack_signal
@@ -55,6 +59,18 @@ func _ready():
 	anims.playback_default_blend_time = .07
 	hitbox_a.area_entered.connect(detected_hit)
 	unit_visuals.randomize_unit()
+	max_health = base_health
+	
+func get_stagger_percentage():
+	return stagger_percentage
+	
+func armored_ready():
+	return true
+	
+func armored_check():
+	print( "Stagger Check: ", float(main_node.health/max_health) * 100)
+	print("Stagger Percentage: ", stagger_percentage)
+	return (main_node.health/max_health * 100) > stagger_percentage
 	
 func attack():
 	if main_node.ctrl == true && attack_actions.find(anims.get_current_animation()) == -1:

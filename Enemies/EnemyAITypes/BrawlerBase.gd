@@ -16,13 +16,15 @@ var has_bounced: bool = false
 var facing_right = false
 var can_flip = true
 var ctrl = true
-
+var aether = 0
+var armored = false
 var stored_vel: Vector3
 @export var has_hit: bool = false
 var in_hitpause: bool = false
 var movement_paused: bool = false
 
 @export var health: int
+@export var stagger_percentage: int
 @export var patrol_countdown = Timer.new()
 @export var attack_cooldown = Timer.new()
 var patrol_timer
@@ -38,6 +40,7 @@ var patrol_timer
 @export var back_ray: RayCast3D
 
 @export var health_bar: ProgressBar
+@export var stagger: HScrollBar
 @export var bar_display: Sprite3D
 @export var unit_scale: Vector3
 
@@ -56,12 +59,16 @@ enum state_machine{
 var current_state: state_machine
 var is_hurt = false
 var grounded = false
+@export var hit_time_label: Label
 signal landed
 
 func _ready():
 	unit = unit_type.instantiate()
+	armored = unit.armored_ready()
 	global_scale(unit_scale)
 	health = unit.base_health
+	stagger_percentage = unit.get_stagger_percentage()
+	stagger.value = stagger_percentage
 	anims = unit.anims
 	unit.main_node = self
 	front_ray = unit.l_ray
@@ -101,6 +108,8 @@ func land_check():
 	if is_hurt == true: 
 		hurt_manager.hurt_land()
 	
+func _process(delta):
+	hit_time_label.text = str(hurt_manager.hit_timer.time_left)
 
 func _physics_process(delta):
 	if current_state != state_machine.DEAD:
@@ -129,12 +138,14 @@ func _physics_process(delta):
 				
 			state_machine.PATROL:
 				ctrl = true
-	#			print("Patroling....")
+				if front_ray.is_colliding() && front_ray.get_collider().is_in_group("Wall") && global_position.distance_to(front_ray.get_collision_point()) < 2.3:
+					print(global_position.distance_to(front_ray.get_collision_point()))
+					_flip()
 				anim_manager("Walk")
 				velocity.x = walk_speed * delta * (1 if facing_right == true  else -1)
 			state_machine.CHASE:
 				ctrl = true
-				pass
+				
 			state_machine.ATTACK:
 	#			print("Attempting Attack")
 				if ctrl == true:
@@ -164,20 +175,26 @@ func _physics_process(delta):
 		move_and_slide()
 		
 func anim_manager(anim):
-#	print("Current Anim: ", anim)
+	print("Current Anim: ", anim)
+	var playing_hurt = false
 	var set_anim = ""
 	if anim == "Idle":
 		set_anim = unit.idle_anim
 	elif anim == "HurtLight":
 		set_anim = unit.hurt_light
+		playing_hurt = true
 	elif anim == "HurtHard":
 		set_anim = unit.hurt_hard
+		playing_hurt = true
 	elif anim == "HurtBounce":
 		set_anim = unit.hurt_bounce
+		playing_hurt = true
 	elif anim == "HurtFall":
 		set_anim = unit.hurt_fall
+		playing_hurt = true
 	elif anim == "HurtDown":
 		set_anim = unit.hurt_down
+		playing_hurt = true
 	elif anim == "Walk":
 		set_anim = unit.walk_anim
 	elif anim == "Run":
@@ -199,29 +216,34 @@ func anim_manager(anim):
 	elif set_anim == "Die":
 		unit.die()
 	else:
-		anims.play(set_anim)
+		if armored == true && playing_hurt == true:
+			pass
+		else:
+			anims.play(set_anim)
 	
 func manage_hurt(hit_info : Move):
-	current_state = state_machine.HURT
+	armored = unit.armored_check()
+	if armored == false:
+		current_state = state_machine.HURT
 	hurt_manager.manage_hurt(hit_info)
 	attack_cooldown.stop()
 	is_hurt = true
-#	action.action_data.action_type.keys()[action.action_data.animation]
-#	LIGHT,
-#	HARD,
-#	GRAB,
-#	FLINCH,
-#	LAUNCH,
-#	SPIKE
+	
+func exit_armor():
+	if health <= 0:
+		die()
 	
 func end_hitstun():
-	is_hurt = false
-	if health > 0:
-		attack_cooldown.start()
-		current_state = state_machine.IDLE
-		anim_manager("Idle")
-	else:
-		die()
+	if armored == false:
+		is_hurt = false
+		if health > 0:
+			attack_cooldown.start()
+			current_state = state_machine.IDLE
+			anim_manager("Idle")
+		else:
+			die()
+	else: 
+		exit_armor()
 		
 func store_vel(store):
 	if store == true:

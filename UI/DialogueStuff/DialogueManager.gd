@@ -1,5 +1,6 @@
 extends Control
 
+
 @export var current_script: Array[Dialogue]
 @export var test_script: Array[Dialogue]
 @export var actor_1_portrait: TextureRect
@@ -21,6 +22,8 @@ var audioRNG = RandomNumberGenerator.new()
 @export var current_dialogue: Dialogue
 var skip_crawl = false
 
+signal dialogue_over
+
 func _ready():
 	hide()
 	
@@ -36,8 +39,8 @@ func _process(delta):
 		else: 
 			print("Skipping")
 			skip_crawl = true
-	if Input.is_action_just_pressed("special_attack"):
-		open_dialogue(test_script)
+#	if Input.is_action_just_pressed("special_attack"):
+#		open_dialogue(test_script)
 
 func open_dialogue(new_dialogue_prompt: Array[Dialogue]):
 	dialogue_active = true
@@ -81,9 +84,8 @@ func advance_dialogue():
 			actor_1_portrait.modulate = Color(1,1,1,1)
 			actor_2_portrait.modulate = Color(1,1,1,1)
 			
-	var letter_count = 0
 	var new_dialogue = ""
-	var dialogue_array = []
+	
 	currently_advancing = true
 	for character in set_script.current_line:
 		if skip_crawl == false:
@@ -105,4 +107,5 @@ func advance_dialogue():
 		
 func end_dialogue():
 	hide()
+	dialogue_over.emit()
 	dialogue_active = false

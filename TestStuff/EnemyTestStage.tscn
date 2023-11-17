@@ -1,14 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://cw4l17dni2q4w"]
+[gd_scene load_steps=9 format=3 uid="uid://cw4l17dni2q4w"]
 
 [ext_resource type="PackedScene" uid="uid://chjcr5rdfdm3c" path="res://Enemies/EnemyAITypes/Brawler.tscn" id="1_hek0r"]
-[ext_resource type="PackedScene" uid="uid://b6smw5r26amiu" path="res://Enemies/DeepBriar/Imperials/Imperial.tscn" id="2_q4stq"]
+[ext_resource type="Script" path="res://TestStuff/CamTest.gd" id="3_35wcv"]
 [ext_resource type="PackedScene" uid="uid://cojb87akn5soe" path="res://TestStuff/MarcyCharacterBody.tscn" id="3_p3bts"]
+[ext_resource type="PackedScene" uid="uid://b885wc3dkmeoe" path="res://NPCs/NPCBase.tscn" id="4_f67yf"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ic6po"]
 size = Vector3(4, 0.265, 4)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_71n0v"]
 data = PackedVector3Array(-2, 0.1325, 2, 2, 0.1325, 2, -2, -0.1325, 2, 2, 0.1325, 2, 2, -0.1325, 2, -2, -0.1325, 2, 2, 0.1325, -2, -2, 0.1325, -2, 2, -0.1325, -2, -2, 0.1325, -2, -2, -0.1325, -2, 2, -0.1325, -2, 2, 0.1325, 2, 2, 0.1325, -2, 2, -0.1325, 2, 2, 0.1325, -2, 2, -0.1325, -2, 2, -0.1325, 2, -2, 0.1325, -2, -2, 0.1325, 2, -2, -0.1325, -2, -2, 0.1325, 2, -2, -0.1325, 2, -2, -0.1325, -2, 2, 0.1325, 2, -2, 0.1325, 2, 2, 0.1325, -2, -2, 0.1325, 2, -2, 0.1325, -2, 2, 0.1325, -2, -2, -0.1325, 2, 2, -0.1325, 2, -2, -0.1325, -2, 2, -0.1325, 2, 2, -0.1325, -2, -2, -0.1325, -2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5gghf"]
+size = Vector3(3.92391, 0.27965, 4.00781)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ogh75"]
+size = Vector3(3.92391, 0.27965, 4.00781)
 
 [node name="World" type="Node3D"]
 
@@ -60,32 +67,47 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.864
 mesh = SubResource("BoxMesh_ic6po")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stage/MeshInstance3D2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Stage/MeshInstance3D2" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+collision_layer = 37
+collision_mask = 37
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/MeshInstance3D2/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_71n0v")
+shape = SubResource("BoxShape3D_5gghf")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Stage"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.87411, 1.72693, 0)
 mesh = SubResource("BoxMesh_ic6po")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stage/MeshInstance3D3"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Stage/MeshInstance3D3" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+collision_layer = 37
+collision_mask = 37
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/MeshInstance3D3/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_71n0v")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_ogh75")
 
 [node name="BrawlerBase" parent="." instance=ExtResource("1_hek0r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.11861, 0.342, 0)
-unit_type = ExtResource("2_q4stq")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.3194, 0.342, 0)
 unit_scale = Vector3(2, 2, 2)
 
 [node name="MarcyTest" parent="." instance=ExtResource("3_p3bts")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -3.62077, -0.015, 0)
 
-[node name="Camera3D2" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.99741, 0.0719327, 0, -0.0719327, 0.99741, 0, 4.86259, 34.5825)
+[node name="Campoint" type="Node3D" parent="MarcyTest"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2.021, 12.337)
+
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("cam_target")]
+transform = Transform3D(1, 0, 0, 0, 0.99741, 0.0719327, 0, -0.0719327, 0.99741, 5.614, 8.2442, 27.5664)
 keep_aspect = 0
 current = true
 fov = 52.0
 size = 16.545
+script = ExtResource("3_35wcv")
+cam_target = NodePath("../MarcyTest/Campoint")
+speed = 4.0
+
+[node name="NPCTest" parent="." instance=ExtResource("4_f67yf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.89751, 0, -1)

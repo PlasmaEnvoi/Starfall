@@ -101,8 +101,11 @@ func shake_over():
 	main_node.movement_paused = false
 	main_node.unit.position = main_node.init_pos
 	done_hurt_impulse = true
-	hit_timer.start()
-	hurt_launch()
+	if main_node.armored == false:
+		main_node.has_friction = true
+		main_node.has_gravity = true
+		hit_timer.start()
+		hurt_launch()
 	
 func hurt_launch():
 #	print("CheckLaunch")
@@ -126,7 +129,7 @@ func hurt_launch():
 func hurt_land():
 #	print("Fall Reset?")
 	if current_hurtbox_info.bounce == true && has_bounced == false:
-#		print("Bounce")
+		print("Bounce")
 		hit_timer.wait_time = 3.0
 		hit_timer.start()
 		main_node.velocity = Vector3(main_node.velocity.x,current_hurtbox_info.bounce_vel.y, 0)
@@ -135,10 +138,10 @@ func hurt_land():
 		knocked_down = true
 		has_bounced = true
 	else: 
-#		print("land")
+		update_anim.emit("HurtDown")
+		print("land")
 		hit_timer.wait_time = .8
 		hit_timer.start()
-		update_anim.emit("HurtDown")
 		main_node.velocity = Vector3(current_hurtbox_info.bounce_vel.x,0, 0)
 		
 func hurt_over():

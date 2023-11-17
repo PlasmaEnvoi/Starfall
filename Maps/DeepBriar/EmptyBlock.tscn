@@ -7,10 +7,10 @@ albedo_color = Color(0.0196078, 0.0196078, 0.0196078, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_x0a8a"]
 material = SubResource("StandardMaterial3D_101rt")
-size = Vector3(20, 20, 10)
+size = Vector3(20, 20, 80)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_jqpxi"]
-data = PackedVector3Array(-10, 10, 5, 10, 10, 5, -10, -10, 5, 10, 10, 5, 10, -10, 5, -10, -10, 5, 10, 10, -5, -10, 10, -5, 10, -10, -5, -10, 10, -5, -10, -10, -5, 10, -10, -5, 10, 10, 5, 10, 10, -5, 10, -10, 5, 10, 10, -5, 10, -10, -5, 10, -10, 5, -10, 10, -5, -10, 10, 5, -10, -10, -5, -10, 10, 5, -10, -10, 5, -10, -10, -5, 10, 10, 5, -10, 10, 5, 10, 10, -5, -10, 10, 5, -10, 10, -5, 10, 10, -5, -10, -10, 5, 10, -10, 5, -10, -10, -5, 10, -10, 5, 10, -10, -5, -10, -10, -5)
+[sub_resource type="BoxShape3D" id="BoxShape3D_31q33"]
+size = Vector3(19.8983, 20.1452, 80.0952)
 
 [node name="BlankSquare" type="Node3D"]
 
@@ -20,4 +20,4 @@ mesh = SubResource("BoxMesh_x0a8a")
 [node name="StaticBody3D" type="StaticBody3D" parent="Mesh"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_jqpxi")
+shape = SubResource("BoxShape3D_31q33")

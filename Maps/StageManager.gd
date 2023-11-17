@@ -18,6 +18,7 @@ var neighbours = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
 var used_tiles
 var tileMap 
 var cells = [MapBlock]
+var blank_blocks = []
 var room_ids = [10]
 signal finished_base
 
@@ -28,6 +29,7 @@ signal finished_base
 #			generate_map(placeholder_rect)
 
 func generate_map(map_rect: Rect2):
+	print("Map Rect: ",map_rect)
 	map_groups.clear()
 	if rooms.get_child_count() != 0:
 		for room in rooms.get_children():
@@ -37,6 +39,19 @@ func generate_map(map_rect: Rect2):
 	map.generate_level(map_rect)
 	tileMap = map.get_tilemap()
 	used_tiles = tileMap.get_used_cells(0)
+	var full_map = []
+	var length_count = 0
+	var height_count = 0
+	for x in map_rect.size.x:
+		for y in map_rect.size.x:
+			full_map.append(Vector2i(x,y))
+	for tile in full_map:
+		if used_tiles.find(tile) == -1:
+			var blank = blank_cell.instantiate()
+			rooms.add_child(blank)
+#			blank.grid_size = grid_size
+			blank.position = Vector3(tile.x * grid_size, tile.y * grid_size, 0)
+			blank_blocks.append(blank)
 	for tile in used_tiles:
 		var cell = Cell.instantiate()
 		rooms.add_child(cell)
@@ -56,7 +71,6 @@ func generate_map(map_rect: Rect2):
 	map_groups.append([]) #3 - All Rooms
 	
 	var starter_blocks = []
-	var blank_blocks = []
 	for c in cells:
 		if (map.layout.get_used_cells(0).find(c.cell_pos + Vector2i.UP)) == -1 && (map.layout.get_used_cells(0).find(c.cell_pos + Vector2i.DOWN)) == -1:
 			map_groups[0].append(c.cell_pos)
