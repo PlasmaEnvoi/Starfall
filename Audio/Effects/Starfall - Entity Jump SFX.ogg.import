@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cgb07i6bioniw"
+path="res://.godot/imported/Starfall - Entity Jump SFX.ogg-6748198b6b1ea0c9898a6b28146687c3.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/Effects/Starfall - Entity Jump SFX.ogg"
+dest_files=["res://.godot/imported/Starfall - Entity Jump SFX.ogg-6748198b6b1ea0c9898a6b28146687c3.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

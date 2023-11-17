@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c0jm7qjr77sj8"
+path="res://.godot/imported/Starfall - Hurt SFX.ogg-bc8941cdde73ae2e6f86f6b4be2668a2.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/Effects/Starfall - Hurt SFX.ogg"
+dest_files=["res://.godot/imported/Starfall - Hurt SFX.ogg-bc8941cdde73ae2e6f86f6b4be2668a2.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

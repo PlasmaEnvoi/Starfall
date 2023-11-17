@@ -8,3 +8,10 @@ res://Maps/DeepBriar/FloorDeco/DecoResources/TestLight_Roundcube_005.res
 res://TestStuff/SwordSlashTest.gdshader
 res://TestStuff/test.gdshader
 res://Disintegrate.tres
+<<<<<<< Updated upstream
+=======
+res://TestStuff/MarcyCharacterBody.tscn
+res://TestStuff/TestChars/MarcySpearNBoard.tscn
+res://UI/DialogueStuff/DialogueBase.tscn
+res://TestStuff/TestChars/Marcy_Spear_Dash.res
+>>>>>>> Stashed changes

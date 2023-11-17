@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cf6u4t635kdxg"
+path="res://.godot/imported/Starfall - Light Dash SFX.ogg-9ff7c7f77c54f05b610282719e5d2c9e.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/Effects/Starfall - Light Dash SFX.ogg"
+dest_files=["res://.godot/imported/Starfall - Light Dash SFX.ogg-9ff7c7f77c54f05b610282719e5d2c9e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

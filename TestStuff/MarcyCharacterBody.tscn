@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cojb87akn5soe"]
+[gd_scene load_steps=17 format=3 uid="uid://cojb87akn5soe"]
 
 [ext_resource type="Script" path="res://TestStuff/marcytest.gd" id="1_k22ay"]
 [ext_resource type="PackedScene" uid="uid://c26pjlpgv6hg7" path="res://TestStuff/TestChars/MarcySpearNBoard.tscn" id="2_flayd"]
@@ -6,6 +6,14 @@
 [ext_resource type="Script" path="res://TestStuff/SoundManager.gd" id="3_jepsl"]
 [ext_resource type="PackedScene" uid="uid://cxjxmb0rc8urt" path="res://UI/shop.tscn" id="4_34se3"]
 [ext_resource type="AudioStream" uid="uid://c5nyh363h0kol" path="res://Audio/Effects/Starfall_-_Slash_SFX.ogg" id="4_ygpqr"]
+[ext_resource type="AudioStream" uid="uid://dht5hfk50v5y1" path="res://Audio/Effects/Starfall - Slash 2 SFX.ogg" id="5_ds41g"]
+[ext_resource type="AudioStream" uid="uid://c7lgy86xm22c8" path="res://Audio/Effects/Starfall - Charge Attack SFX.ogg" id="6_7uf3q"]
+[ext_resource type="AudioStream" uid="uid://c0jm7qjr77sj8" path="res://Audio/Effects/Starfall - Hurt SFX.ogg" id="7_0po6t"]
+[ext_resource type="AudioStream" uid="uid://b8dpje22mnti6" path="res://Audio/Effects/Starfall - Parry SFX.ogg" id="8_ssrm5"]
+[ext_resource type="AudioStream" uid="uid://dnraqbrghlvdn" path="res://Audio/Effects/Starfall - Block SFX.ogg" id="9_ivtk7"]
+[ext_resource type="AudioStream" uid="uid://cgb07i6bioniw" path="res://Audio/Effects/Starfall - Entity Jump SFX.ogg" id="10_3yo3u"]
+[ext_resource type="AudioStream" uid="uid://c2qkh6nc2b5eb" path="res://Audio/Effects/Starfall - Entity Land SFX.ogg" id="11_ow0q1"]
+[ext_resource type="AudioStream" uid="uid://nko8jbtm6hpi" path="res://Audio/Effects/Starfall - Medium Dash SFX.ogg" id="12_3be3e"]
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_ybaai"]
 custom_solver_bias = 1.0
@@ -33,7 +41,7 @@ audio_player = NodePath("AudioPlayer")
 [node name="AudioPlayer" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_ygpqr")
 script = ExtResource("3_jepsl")
-attack_sounds = Array[AudioStream]([ExtResource("4_ygpqr")])
+attack_sounds = Array[AudioStream]([ExtResource("4_ygpqr"), ExtResource("5_ds41g"), ExtResource("6_7uf3q"), ExtResource("7_0po6t"), ExtResource("8_ssrm5"), ExtResource("9_ivtk7"), ExtResource("10_3yo3u"), ExtResource("11_ow0q1"), ExtResource("12_3be3e")])
 
 [node name="StandardHurtManager" parent="." instance=ExtResource("3_5hmog")]
 

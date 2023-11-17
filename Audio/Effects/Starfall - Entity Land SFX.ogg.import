@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c2qkh6nc2b5eb"
+path="res://.godot/imported/Starfall - Entity Land SFX.ogg-b3f5886f8b3f99a17c29f93f0c640e61.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/Effects/Starfall - Entity Land SFX.ogg"
+dest_files=["res://.godot/imported/Starfall - Entity Land SFX.ogg-b3f5886f8b3f99a17c29f93f0c640e61.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

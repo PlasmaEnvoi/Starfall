@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dht5hfk50v5y1"
+path="res://.godot/imported/Starfall - Slash 2 SFX.ogg-da384d30bd4c0c1c5d1de2af6820423f.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/Effects/Starfall - Slash 2 SFX.ogg"
+dest_files=["res://.godot/imported/Starfall - Slash 2 SFX.ogg-da384d30bd4c0c1c5d1de2af6820423f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
