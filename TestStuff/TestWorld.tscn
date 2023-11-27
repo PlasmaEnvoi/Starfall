@@ -90,4 +90,3 @@ horizontal_alignment = 2
 
 [node name="MusicManager" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_7tyrw")
-autoplay = true

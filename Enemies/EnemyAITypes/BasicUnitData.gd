@@ -12,6 +12,7 @@ class_name EnemyUnit
 @export var down_time: float
 @export var unit_visuals: GruntVisuals
 @export var anim_lock: bool = false
+@export var current_land_override : String
 
 @export_group("Nodes")
 @export var l_ray: RayCast3D
@@ -32,6 +33,7 @@ class_name EnemyUnit
 @export var idle_anim: String
 @export var walk_anim: String
 @export var jump_anim: String
+var overriding_land = false
 
 @export_group("Hurts")
 @export var hurt_light: String
@@ -147,9 +149,13 @@ func _end_anims(anim_name):
 #	print("Attempt End Animation")
 	if main_node.ctrl == true:
 		return_neutral()
-	print(attack_actions.find(anim_name))
+#	print(attack_actions.find(anim_name))
 	if attack_actions.find(anim_name) != -1 && main_node.ctrl == false:
 			print("Start Cooldown")
 			main_node.current_state = main_node.state_machine.IDLE if main_node.is_on_floor() == true else main_node.state_machine.FALL
 			main_node.attack_cooldown.start()
 			
+func override_landing(new_anim: String):
+	print(new_anim)
+	main_node.overriding_land = true
+	current_land_override = new_anim

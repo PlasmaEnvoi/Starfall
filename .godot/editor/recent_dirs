@@ -1,8 +1,11 @@
+res://Effects
+res://TestStuff
+res://Maps/VerrisMountains
+res://TestStuff/TestChars/Staff
 res://NPCs
 res://Audio/Effects
 res://UI/DialogueStuff/TempStuff
 res://UI/DialogueStuff
-res://TestStuff
 res://Enemies/DeepBriar/Imperials/Anims
 res://Enemies/DeepBriar/Imperials
 res://TestStuff/TestChars
@@ -17,5 +20,4 @@ res://Maps/DeepBriar/Platforms
 res://Maps/StageInformation
 res://Maps/DeepBriar
 res://TestStuff/TestChars/Cauldron/Animations
-res://TestStuff/TestChars/Cauldron
 C:/Program Files (x86)/Steam/steamapps/common/Blender

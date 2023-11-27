@@ -47,22 +47,24 @@ func get_attack_anim():
 func randomize_unit():
 	#Set random blades
 	var rand_check = randf()
-	if rand_check <.33:
-		is_left_arm_blade = false
-		is_right_arm_blade = true
-		arm_r.queue_free()
-		blade_l.queue_free()
-	elif rand_check <.66:
-		is_left_arm_blade = true
-		is_right_arm_blade = false
-		arm_l.queue_free()
-		blade_r.queue_free()
-	else:
-		is_left_arm_blade = true
-		is_right_arm_blade = true
+#	if rand_check <.33:
+#		is_left_arm_blade = false
+#		is_right_arm_blade = true
+#		arm_r.queue_free()
+#		blade_l.queue_free()
+#	elif rand_check <.66:
+#		is_left_arm_blade = true
+#		is_right_arm_blade = false
+#		arm_l.queue_free()
+#		blade_r.queue_free()
+#	else:
+#		is_left_arm_blade = true
+#		is_right_arm_blade = true
+	is_left_arm_blade = true
+	is_right_arm_blade = true
 		
 	#Set Random wings
-	if randf()<.80:
+	if randf()<.10:
 		has_wings = false
 		wings.queue_free()
 
@@ -114,3 +116,4 @@ func combo_check():
 	attack_anim = possible_anims.pick_random()
 	
 	return attack_anim
+	

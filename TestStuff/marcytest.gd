@@ -17,20 +17,23 @@ extends CharacterBody3D
 @export var dialogue: Control
 var interacting = false
 
-var walk_speed = 6.0
-var acceleration = 25
-var friction = 30
-var drift_speed = 8.0
-var air_friction = 7
-var jump_speed = 14.5
-var dash_speed = 12.5
-var max_air_actions = 2
-var air_actions = 2
-var max_air_jumps = 1
-var air_jumps = 1
+@export_group("MovementStats")
+@export var walk_speed = 6.0
+@export var acceleration = 25
+@export var friction = 30
+@export var drift_speed = 8.0
+@export var air_friction = 7
+@export var jump_speed = 14.5
+@export var dash_speed = 12.5
+@export var dash_length: float = 1.3
+@export var max_air_actions = 2
+@export var air_actions = 2
+@export var max_air_jumps = 1
+@export var air_jumps = 1
+@export var wj_height = 14
+@export var gravity = 30
+@export var gravity_modifier = 1
 var can_jump = true
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-var gravity_modifier = 1
 var fast_fall = false
 var land = true
 var facing_right = true
@@ -38,7 +41,6 @@ var ctrl = true
 var can_cancel = true
 var can_flip = true
 var wallslide = false
-var wj_height = 14
 var current_wj_count = 1
 var input_dir
 var direction
@@ -53,6 +55,7 @@ var init_pos : Vector3
 
 var stored_vel: Vector3
 var has_hit: bool
+var hit_enemies: Array
 
 var jump_buffer: float
 var n_light_buffer: float
@@ -90,10 +93,13 @@ var current_interact
 @export_group("Hit Stuff")
 @export var armored = false
 
-@export_group("Overrides")
-@export var override_landing: Callable
-@export var override_hit: Callable
-@export var override_hurt: Callable
+@export_group("Override Checks")
+@export var override_landing: bool
+@export var override_hit: bool
+@export var override_hurt: bool
+@export var ov_landing_anim: String
+@export var ov_hit_anim: String
+@export var ov_hurt_anim: String
 
 signal grounded(bool)
 signal just_jumped
@@ -102,7 +108,9 @@ signal aether_changed
 signal health_update
 
 func _ready():
-	
+	override_landing = false
+	override_hit = false
+	override_hurt = false
 	shop.player = self
 	shop.stock_store(shop.stock)
 	dialogue.dialogue_over.connect(end_dialogue)
@@ -126,6 +134,8 @@ func _ready():
 	init_pos = char_visuals.position
 	update_aether(0)
 	
+	health = max_health
+	
 func landing(land_check):
 	air_actions = max_air_actions
 	air_jumps = max_air_jumps
@@ -139,6 +149,9 @@ func landing(land_check):
 		play_anims.emit("Land", "")
 	else:
 		anim_manager("HurtDown")
+	if override_landing == true:
+		anims.play(ov_landing_anim)
+		override_landing = false
 	
 func buffer_manage(delta):
 	
@@ -192,7 +205,13 @@ func buffer_manage(delta):
 					
 		if Input.is_action_just_pressed("jump"):
 			jump_buffer = buffer_time
-			
+	if Input.is_action_just_pressed("special_attack"):
+		if Input.is_action_pressed("up"):
+			u_special_buffer = buffer_time
+		elif Input.is_action_pressed("down"):
+			d_special_buffer = buffer_time
+		elif Input.is_action_pressed("left") || Input.is_action_pressed("right"):
+			f_special_buffer = buffer_time
 	if Input.is_action_just_released("special_attack"):
 		char_visuals.last_charge = charge
 		charge = 0
@@ -212,7 +231,11 @@ func _process(delta):
 func _physics_process(delta):
 	if lock_input == false:
 		input_dir = Input.get_vector("left", "right", "up", "down")
-		direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		if ctrl == true:
+			direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		else: 
+			direction = Vector2.ZERO
+		var special_lock = false
 		if attacks_active == true:
 			if ctrl == true || can_cancel == true && in_hitpause == false && is_hurt == false:
 				if u_light_buffer > 0:
@@ -227,35 +250,45 @@ func _physics_process(delta):
 				elif n_light_buffer > 0:
 					play_anims.emit("Light", "")
 					n_light_buffer = 0
+				elif f_special_buffer > 0:
+					play_anims.emit("Heavy", "fwd")
+					f_special_buffer = 0
+					n_special_release_buffer = 0
+					special_lock = true
+				elif u_special_buffer > 0:
+					play_anims.emit("Heavy", "up")
+					u_special_buffer = 0
+					n_special_release_buffer = 0
+					special_lock = true
+				elif d_special_buffer > 0:
+					play_anims.emit("Heavy", "down")
+					d_special_buffer = 0
+					n_special_release_buffer = 0
+					special_lock = true
+				elif n_special_release_buffer > 0:
+					play_anims.emit("Heavy", "")
+					n_special_release_buffer = 0
 				elif l_buffer > 0 && Input.is_action_just_pressed("left") && ((can_jump == true) && in_hitpause == false) :
 					if air_actions > 0:
 		#				print("Attempt Dash")
-						impulse(dash_speed * direction.x, -dash_speed * direction.z)
 						air_actions -= 1 if is_on_floor() == false else 0
 						play_anims.emit("Dash", "")
 				elif r_buffer > 0 && Input.is_action_just_pressed("right") && ((can_jump == true) && in_hitpause == false) :
 					if air_actions > 0:
 		#				print("Attempt Dash")
-						impulse(dash_speed * direction.x, -dash_speed * direction.z)
 						air_actions -= 1 if is_on_floor() == false else 0
 						play_anims.emit("Dash", "")
-				elif u_buffer > 0 && Input.is_action_just_pressed("up") && ((can_jump == true) && in_hitpause == false) :
-					if air_actions > 0:
-		#				print("Attempt Dash")
-						impulse(dash_speed * direction.x, -dash_speed * direction.z)
-						air_actions -= 1 if is_on_floor() == false else 0
-						play_anims.emit("Dash", "")
-				elif d_buffer > 0 && Input.is_action_just_pressed("down") && ((can_jump == true) && in_hitpause == false) :
-					if air_actions > 0:
-		#				print("Attempt Dash")
-						impulse(dash_speed * direction.x, -dash_speed * direction.z)
-						air_actions -= 1 if is_on_floor() == false else 0
-						play_anims.emit("Dash", "")
+#				elif u_buffer > 0 && Input.is_action_just_pressed("up") && ((can_jump == true) && in_hitpause == false) :
+#					if air_actions > 0:
+#		#				print("Attempt Dash")
+#						air_actions -= 1 if is_on_floor() == false else 0
+#						play_anims.emit("Dash", "")
+#				elif d_buffer > 0 && Input.is_action_just_pressed("down") && ((can_jump == true) && in_hitpause == false) :
+#					if air_actions > 0:
+#		#				print("Attempt Dash")
+#						air_actions -= 1 if is_on_floor() == false else 0
+#						play_anims.emit("Dash", "")
 				
-			if (Input.is_action_pressed("special_attack") == false && charge > 0) && (ctrl == true || can_cancel == true) && in_hitpause == false && is_hurt == false:
-				play_anims.emit("Heavy", "")
-				n_special_release_buffer = 0
-				print("Attempt Release")
 		
 	if lock_input == false:
 		buffer_manage(delta)
@@ -334,14 +367,14 @@ func _physics_process(delta):
 			play_anims.emit("Jump", "")
 		
 		jump_buffer = 0
-
-	if direction.x < 0 && facing_right == true && wallslide == false && can_flip == true && is_hurt == false:
-#		print("Flip Check")
-		_flip()
-		
-	if direction.x > 0 && facing_right == false && wallslide == false && can_flip == true && is_hurt == false:
-#		print("Flip Check")
-		_flip()
+	if unit.anim_lock == false:
+		if direction.x < 0 && facing_right == true && wallslide == false && can_flip == true && is_hurt == false:
+	#		print("Flip Check")
+			_flip()
+			
+		if direction.x > 0 && facing_right == false && wallslide == false && can_flip == true && is_hurt == false:
+	#		print("Flip Check")
+			_flip()
 		
 	if direction.x > 0 && velocity.x < 0 && ctrl == true:
 		friction *= 2
@@ -350,16 +383,18 @@ func _physics_process(delta):
 	else:
 		friction = 40
 		
-	if direction && wallslide == false && in_hitpause == false && is_hurt == false:
+	if (direction) && wallslide == false && in_hitpause == false && is_hurt == false:
 	
-		if is_on_floor() && velocity.y == 0 && ctrl == true:
+		if is_on_floor() && velocity.y == 0:
 			play_anims.emit("GroundMove", "") 
-		velocity.x = move_toward(velocity.x, direction.x * (walk_speed if is_on_floor() == true else drift_speed), acceleration * delta)
+		if has_friction == true && unit.anim_lock == false:
+			velocity.x = move_toward(velocity.x, direction.x * (walk_speed if is_on_floor() == true else drift_speed), acceleration * delta)
 #		velocity.x = direction.x * walk_speed if is_on_floor() == true else direction.x * drift_speed
 	else:
-		if is_on_floor() && velocity.y == 0 && has_friction == true && is_hurt == false:
-			play_anims.emit("Brake", "") if velocity.y == 0 else ""
-		velocity.x = move_toward(velocity.x, 0, (friction if is_on_floor() else air_friction) * delta)  
+		if has_friction == true:
+			if is_on_floor() && velocity.y == 0 && is_hurt == false:
+				play_anims.emit("Brake", "") if velocity.y == 0 else ""
+			velocity.x = move_toward(velocity.x, 0, (friction if is_on_floor() else air_friction) * delta)  
 
 	if movement_paused == false:
 		if velocity.y < -30:
@@ -367,6 +402,7 @@ func _physics_process(delta):
 		move_and_slide()
 
 func anim_manager(anim):
+	
 	char_visuals.animtree.active = false
 #	print("Current Anim: ", anim)
 	var set_anim = ""
@@ -384,6 +420,8 @@ func anim_manager(anim):
 		set_anim = char_visuals.fall_anim
 	elif anim == "Recover":
 		set_anim = char_visuals.recover_air
+	else: 
+		set_anim = anim
 		
 	play_anims.emit(set_anim,"Hurt")
 	
@@ -428,13 +466,19 @@ func end_hitstun():
 
 func manage_hurt(hit_info : Move):
 #	current_state = state_machine.HURT
-	hurt_manager.manage_hurt(hit_info)
-	is_hurt = true
-	ctrl = false
-	fast_fall = false
+
+	if override_hurt == true:
+		anims.play(ov_hurt_anim)
+		override_hurt = false
+	else:
+		hurt_manager.manage_hurt(hit_info)
+		is_hurt = true
+		ctrl = false
+		fast_fall = false
 
 
 func mod_health(damage):
+	print("Damage: ", damage)
 	health -= damage if health > damage else health
 	health_update.emit()
 

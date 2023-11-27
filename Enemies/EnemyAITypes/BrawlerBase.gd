@@ -59,6 +59,7 @@ enum state_machine{
 var current_state: state_machine
 var is_hurt = false
 var grounded = false
+var overriding_land = false
 @export var hit_time_label: Label
 signal landed
 
@@ -105,6 +106,10 @@ func _ready():
 	attack_cooldown.stop()
 	
 func land_check():
+	if overriding_land == true:
+		print("Attempting Override: ", unit.current_land_override)
+		overriding_land == false
+		anim_manager(unit.current_land_override)
 	if is_hurt == true: 
 		hurt_manager.hurt_land()
 	
@@ -154,9 +159,12 @@ func _physics_process(delta):
 					
 				if is_on_floor() && has_friction == true:
 					velocity.x = move_toward(velocity.x, 0, friction * delta)  
-#				if !is_on_floor():
+				if !is_on_floor():
+					if has_gravity == true:
+						velocity.y -= gravity * delta
 #					current_state = state_machine.FALL
 			state_machine.HURT:
+				armored = false
 				if abs(velocity.x) > 10 && is_on_wall() && hurt_manager.wallbounced == false:
 					hurt_manager.init_shake("Wall")
 				front_ray.enabled = true
@@ -175,7 +183,7 @@ func _physics_process(delta):
 		move_and_slide()
 		
 func anim_manager(anim):
-	print("Current Anim: ", anim)
+#	print("Current Anim: ", anim)
 	var playing_hurt = false
 	var set_anim = ""
 	if anim == "Idle":
@@ -210,6 +218,9 @@ func anim_manager(anim):
 	elif anim == "Die":
 		set_anim = "Die"
 		
+	else: 
+		set_anim = anim
+		
 		
 	if set_anim == "Attack":
 		unit.attack()
@@ -223,6 +234,8 @@ func anim_manager(anim):
 	
 func manage_hurt(hit_info : Move):
 	armored = unit.armored_check()
+	if hit_info.armor_piercing == true:
+		armored = false
 	if armored == false:
 		current_state = state_machine.HURT
 	hurt_manager.manage_hurt(hit_info)

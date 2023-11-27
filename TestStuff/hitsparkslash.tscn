@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://du5yu4k4ssw54"]
+[gd_scene load_steps=8 format=3 uid="uid://du5yu4k4ssw54"]
 
 [ext_resource type="Script" path="res://TestStuff/PlaySpark.gd" id="1_60l45"]
 
@@ -35,24 +35,19 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vmtpy")
 
+[sub_resource type="BoxMesh" id="BoxMesh_ieffa"]
+
 [sub_resource type="Animation" id="Animation_5ubca"]
 resource_name = "Spark"
 length = 0.133335
 step = 0.0166667
-tracks/0/type = "rotation_3d"
+tracks/0/type = "scale_3d"
 tracks/0/imported = true
 tracks/0/enabled = true
 tracks/0/path = NodePath("Cube")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.133333, 1, 0, 0, 0, 1)
-tracks/1/type = "scale_3d"
-tracks/1/imported = true
-tracks/1/enabled = true
-tracks/1/path = NodePath("Cube")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.316876, 2.0851, 1.50873, 0.0333333, 1, 0.304013, 1.03089, 2.23086, 0.0666667, 1, 0.270064, 0.45727, 2.64122, 0.1, 1, 0.233098, 0.245936, 2.80297, 0.133333, 1, 0.215746, 0.215746, 2.8313)
+tracks/0/keys = PackedFloat32Array(0, 1, 1.172, 2.085, 1.509, 0.0333333, 1, 0.304013, 1.03089, 2.23086, 0.0666667, 1, 0.270064, 0.45727, 2.64122, 0.1, 1, 0.233098, 0.245936, 2.80297, 0.133333, 1, 0.215746, 0.215746, 2.8313)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jd4b2"]
 _data = {
@@ -65,8 +60,14 @@ anims = NodePath("AnimationPlayer")
 mesh = NodePath("Cube")
 
 [node name="Cube" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.215746, 0, 0, 0, 0.215746, 0, 0, 0, 2.8313, 0, 0, 0)
+transform = Transform3D(-0.215746, 0, 4.27514e-07, 0, 0.215746, 0, -3.25767e-08, 0, -2.8313, 0, 0, 0)
 mesh = SubResource("ArrayMesh_0q2c2")
+skeleton = NodePath("")
+
+[node name="Cube2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.06656e-07, 0, 20, 0, 20, 0, -2.44, 0, -8.74228e-07, -2.10152, 0, -2.10152)
+visible = false
+mesh = SubResource("BoxMesh_ieffa")
 skeleton = NodePath("")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

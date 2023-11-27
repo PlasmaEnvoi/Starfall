@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://cojb87akn5soe"]
 
 [ext_resource type="Script" path="res://TestStuff/marcytest.gd" id="1_k22ay"]
-[ext_resource type="PackedScene" uid="uid://c26pjlpgv6hg7" path="res://TestStuff/TestChars/MarcySpearNBoard.tscn" id="2_flayd"]
+[ext_resource type="PackedScene" uid="uid://dses6mkid8kae" path="res://TestStuff/TestChars/Staff/MarcyStaffForm.tscn" id="2_gjbqt"]
 [ext_resource type="PackedScene" uid="uid://cioa87eff1yli" path="res://Enemies/EnemyAITypes/standard_hurt_manager.tscn" id="3_5hmog"]
 [ext_resource type="Script" path="res://TestStuff/SoundManager.gd" id="3_jepsl"]
 [ext_resource type="PackedScene" uid="uid://cxjxmb0rc8urt" path="res://UI/shop.tscn" id="4_34se3"]
@@ -22,12 +22,13 @@ collision_mask = 131
 axis_lock_linear_z = true
 floor_stop_on_slope = false
 script = ExtResource("1_k22ay")
-marcy_type = ExtResource("2_flayd")
+marcy_type = ExtResource("2_gjbqt")
 l_wall_sensor = NodePath("Sensors/LWall")
 r_wall_sensor = NodePath("Sensors/RWall")
 floor_sensor = NodePath("Sensors/FloorSensor")
 hurt_manager = NodePath("StandardHurtManager")
-health = 1500
+health = 1000
+max_health = 1000
 shop = NodePath("Shop")
 dialogue = NodePath("DialogueManager")
 audio_player = NodePath("AudioPlayer")

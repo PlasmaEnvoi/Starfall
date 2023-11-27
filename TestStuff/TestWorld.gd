@@ -42,8 +42,10 @@ func update_aether_label():
 	aether_count.text = "Æther: " + str(marcy.aether)
 	
 func update_health_bar():
-	health_bar.max_value = marcy.max_health
+	print(marcy.health)
+	print(marcy.max_health)
 	health_bar.value = marcy.health
+	health_bar.max_value = marcy.max_health
 	
 func populate_map():
 #	print("Attempting Populate")

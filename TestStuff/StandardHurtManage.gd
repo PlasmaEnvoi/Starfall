@@ -83,6 +83,8 @@ func init_shake(type):
 			wallbounced = true
 			wall_shake_timer.wait_time = .05
 			wall_shake_timer.start()
+	print(current_hurtbox_info.armor_piercing )
+		
 	hit_timer.stop()
 	shaking = true
 	done_hurt_impulse = false
@@ -101,7 +103,7 @@ func shake_over():
 	main_node.movement_paused = false
 	main_node.unit.position = main_node.init_pos
 	done_hurt_impulse = true
-	if main_node.armored == false:
+	if main_node.armored == false || current_hurtbox_info.armor_piercing == true:
 		main_node.has_friction = true
 		main_node.has_gravity = true
 		hit_timer.start()

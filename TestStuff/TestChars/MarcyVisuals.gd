@@ -33,7 +33,7 @@ class_name MarcyForm
 @export var fast_fall: String
 @export var land: String
 @export var brake: String
-
+@export var dash_anim: String
 @export_group("Form Hurts")
 @export var hurt_light: String
 @export var hurt_hard: String
@@ -94,29 +94,34 @@ func _process(delta):
 		charge_effect.stop_charge()
 func manage_anims(anim, input):
 	if anim_lock == false:
-#		anims.stop()
-		anims.call_deferred("stop")
+		anims.stop()
+#		anims.call_deferred("stop")
 #	print(anim,  " - ", input)
 	
 #	print(anims.get_current_animation())
 	match anim:
 		"Idle":
+			main_node.override_hit = false
 			if anim_lock == false:
 				main_node.can_cancel = true
 				animtree.set("parameters/GroundAirBlend/blend_amount", 0)
 				ground_combo_progression = 0
 			
 		"Brake":
+			main_node.override_hit = false
 			if anim_lock == false:
 				animtree.set("parameters/GroundAirBlend/blend_amount", 0)
 				animtree.set("parameters/GroundMove/blend_amount", 0)
 				animtree.set("parameters/BrakeBlend/blend_amount", abs(main_node.velocity.x/main_node.walk_speed))
 				
 		"GroundMove":
+			main_node.override_hit = false
 			if anim_lock == false:
 				animtree.set("parameters/GroundAirBlend/blend_amount", 0)
 				animtree.set("parameters/GroundMove/blend_amount", abs(main_node.velocity.x/main_node.walk_speed))
+				print(abs(main_node.velocity.x/main_node.walk_speed))
 		"Jump":
+			main_node.override_hit = false
 			if anim_lock == false:
 				pass
 			else: 
@@ -128,11 +133,13 @@ func manage_anims(anim, input):
 			animtree.set("parameters/JumpType/blend_amount", clamp(main_node.velocity.x,0,0))
 			animtree.set("parameters/JumpTree/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		"Dash":
-			if anims.get_current_animation() != ("Marcy_Spear_Dash"):
+			main_node.override_hit = false
+			if anims.get_current_animation() != (dash_anim):
 				anim_lock = true
 				animtree.active = false
-				anims.play("Marcy_Spear_Dash")
+				anims.play(dash_anim)
 		"Airmove":
+			main_node.override_hit = false
 			if anim_lock == false:
 				animtree.set("parameters/GroundAirBlend/blend_amount", 1)
 				if main_node.fast_fall == true: 
@@ -140,12 +147,14 @@ func manage_anims(anim, input):
 				animtree.set("parameters/FallSwitch/blend_amount", -1 if main_node.fast_fall == true else 0)
 			
 		"Wallslide":
+			main_node.override_hit = false
 			if anim_lock == false:
 				animtree.set("parameters/GroundAirBlend/blend_amount", 1)
 				animtree.set("parameters/JumpTree/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 				animtree.set("parameters/FallSwitch/blend_amount", 1)
 			
 		"Land":
+			main_node.override_hit = false
 			if anim_lock == false:
 				animtree.set("parameters/GroundAirBlend/blend_amount", 1)
 				animtree.set("parameters/FallSwitch/blend_amount", 0 if main_node.fast_fall == true else 1)
@@ -161,6 +170,7 @@ func manage_anims(anim, input):
 			manage_light_combo(input)
 		"Heavy":
 			var current_move
+			print("Checking input: ",input)
 			if input == "fwd":
 				current_move = f_sp
 			elif input == "down":
@@ -172,9 +182,9 @@ func manage_anims(anim, input):
 			manage_heavy(current_move)
 			
 	if input == "Hurt" && anims.get_current_animation() != anim:
+		main_node.override_hit = false
 		animtree.active = false
 		anims.play(anim)
-
 		
 func manage_heavy(current_move):
 	print(current_move)
@@ -256,10 +266,13 @@ func cancel_switch(input_switch):
 
 func _end_anims(anim_name):
 #	print(anim_name)
+	if anim_name == dash_anim:
+		manage_anims("Airmove", "")
 	if main_node.is_hurt == false:
 		return_neutral()
 	
 func return_neutral():
+	main_node.override_hit = false
 	hitbox_a.monitoring = false
 	hitbox_b.monitoring = false
 	hitbox_c.monitoring = false
@@ -284,8 +297,10 @@ func movement_impulse(movement: Vector2, has_friction: bool, has_gravity: bool):
 	
 
 func establish_hitbox_info(info: Move):
+	main_node.has_gravity = true
+	main_node.has_friction = true
 	main_node.can_cancel = false
-	main_node.has_hit = false
+	main_node.hit_enemies.clear()
 	current_hitbox_data = info.duplicate()
 	current_hitbox_data.move_owner = self
 	if main_node.facing_right == false:
@@ -299,19 +314,20 @@ func create_spark(basic_hitspark):
 	get_tree().root.add_child(new_spark)
 	new_spark.global_position.x = global_position.x + current_hitbox_data.spark_pos.x/100.0 * ( -1 if main_node.facing_right == false else 1)
 	new_spark.global_position.y = global_position.y + current_hitbox_data.spark_pos.y/100.0
-	new_spark.rotation_degrees.x = current_hitbox_data.spark_rot
+	new_spark.rotation_degrees.x = current_hitbox_data.spark_rot + ( 180 if main_node.facing_right == false else 0)
 	
 func detected_hit(target):
 	main_node.can_jump = true if current_hitbox_data.jump_cancel == true else false
 	main_node.can_cancel = true
-	if current_hitbox_data.hits_once == true && main_node.has_hit == false:
+	if current_hitbox_data.hits_once == true && main_node.hit_enemies.find(target) == -1:
 		resolve_hit(target)
 	elif current_hitbox_data.hits_once != true:
 		resolve_hit(target)
 		
 func resolve_hit(target):
-		main_node.has_hit = true
+		main_node.hit_enemies.append(target)
 		hit_pause([anims.get_current_animation(),anims.get_current_animation_position()]) 
+		create_spark(basic_hitspark)
 		if target.owner.is_in_group("Projectile") || target.is_in_group("Projectile"):
 			pass
 		else:
@@ -325,7 +341,7 @@ func hit_pause(current_anim_data):
 	main_node.in_hitpause = false
 	main_node.store_vel(false)
 	anims.play()
-	current_hitbox_data
+	
 	
 func emit_sound(sound, strength):
 	play_sound.emit(sound, strength)
@@ -351,3 +367,9 @@ func create_projectile(projectile_data: ProjectileData):
 	
 func proj_hit():
 	pass
+	
+func override_hurt(active: bool, override_anim : String):
+	main_node.override_hurt = active
+	main_node.ov_hurt_anim = override_anim
+	
+
