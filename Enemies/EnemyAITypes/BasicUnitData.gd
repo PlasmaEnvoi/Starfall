@@ -10,11 +10,13 @@ class_name EnemyUnit
 @export var max_health: float
 @export var stagger_percentage: float
 @export var down_time: float
-@export var unit_visuals: GruntVisuals
+@export var unit_visuals: Node3D
 @export var anim_lock: bool = false
 @export var current_land_override : String
+@export var armored_ready: bool = true
 
 @export_group("Nodes")
+@export var player: Node3D
 @export var l_ray: RayCast3D
 @export var r_ray: RayCast3D
 @export var d_sensor: RayCast3D
@@ -44,9 +46,13 @@ var overriding_land = false
 @export var hurt_bounce: String
 @export var recover_air: String
 @export var fall_anim: String
+@export var die: String
 
 @export_group("Attacks")
+@export var prep_ranged: String
+@export var fire_ranged: String
 @export var attack_actions: Array[String]
+@export var attack_cooldown: float
 
 @export_group("Drops")
 @export var aether_drop_mod: int = 2
@@ -62,21 +68,20 @@ func _ready():
 	hitbox_a.area_entered.connect(detected_hit)
 	unit_visuals.randomize_unit()
 	max_health = base_health
+	print("Default Stagger: ", get_stagger_percentage())
 	
 func get_stagger_percentage():
 	return stagger_percentage
 	
-func armored_ready():
-	return true
 	
-func armored_check():
+func armored_check(damage):
 	print( "Stagger Check: ", float(main_node.health/max_health) * 100)
 	print("Stagger Percentage: ", stagger_percentage)
-	return (main_node.health/max_health * 100) > stagger_percentage
+	return (float((main_node.health - damage)/max_health) * 100) > stagger_percentage
 	
 func attack():
 	if main_node.ctrl == true && attack_actions.find(anims.get_current_animation()) == -1:
-#		print("Attempt Swing")
+		#print("Attempt Swing")
 		unit_visuals.did_combo = false
 		unit_visuals.current_anim = unit_visuals.get_attack_anim()
 		anims.play(unit_visuals.current_anim)
@@ -90,10 +95,12 @@ func movement_impulse(movement: Vector2, has_friction: bool, has_gravity: bool):
 	
 
 func establish_hitbox_info(info: Move):
+	print("Constructing hit information")
+	main_node.hit_enemies.clear()
 	main_node.ctrl = false
 	main_node.has_hit = false
 	current_hitbox_data = info.duplicate()
-	current_hitbox_data.move_owner = self
+	current_hitbox_data.move_owner = get_path()
 	if main_node.facing_right == false:
 		current_hitbox_data.ground_vel.x *= -1
 		current_hitbox_data.air_vel.x *= -1
@@ -108,13 +115,15 @@ func create_spark(basic_hitspark):
 	new_spark.rotation_degrees.x = current_hitbox_data.spark_rot
 	
 func detected_hit(target):
-	if current_hitbox_data.hits_once == true && main_node.has_hit == false:
-		resolve_hit(target)
-	elif current_hitbox_data.hits_once != true:
-		resolve_hit(target)
+	if target.owner.is_in_group("Player"):
+		print("Current HitBox Information: ", current_hitbox_data)
+		if current_hitbox_data.hits_once == true && main_node.hit_enemies.find(target) == -1:
+			resolve_hit(target)
+		elif current_hitbox_data.hits_once != true:
+			resolve_hit(target)
 		
 func resolve_hit(target):
-		main_node.has_hit = true
+		main_node.hit_enemies.append(target)
 		create_spark(basic_hitspark)
 		hit_pause([anims.get_current_animation(),anims.get_current_animation_position()]) 
 		target.owner.main_node.manage_hurt(current_hitbox_data)
@@ -132,10 +141,8 @@ func hit_pause(current_anim_data):
 	
 func return_neutral():
 	hitbox_a.monitoring = false
-	hitbox_b.monitoring = false
-	hitbox_c.monitoring = false
 	main_node.has_hit = false
-	slash.hide()
+	#slash.hide()
 	main_node.can_flip = true
 	main_node.has_friction = true
 	main_node.has_gravity = true
@@ -159,3 +166,15 @@ func override_landing(new_anim: String):
 	print(new_anim)
 	main_node.overriding_land = true
 	current_land_override = new_anim
+
+func create_effect(effect: PackedScene, pos: Vector3, new_scale: Vector3):
+	var new_effect = effect.instantiate()
+	new_effect.hide()
+	get_tree().root.add_child(new_effect)
+	new_effect.global_position = global_position + pos  * (1 if main_node.facing_right == true else -1)
+	new_effect.rotation.y +=   (180 if main_node.facing_right == false else 0)
+	new_effect.scale = new_scale
+	new_effect.show()
+	
+func _end_things():
+	main_node.die()

@@ -100,7 +100,8 @@ var current_interact
 @export var ov_landing_anim: String
 @export var ov_hit_anim: String
 @export var ov_hurt_anim: String
-
+@export_group("Timer")
+var invul_timer
 signal grounded(bool)
 signal just_jumped
 signal play_anims
@@ -108,6 +109,7 @@ signal aether_changed
 signal health_update
 
 func _ready():
+	
 	override_landing = false
 	override_hit = false
 	override_hurt = false
@@ -127,11 +129,18 @@ func _ready():
 	play_anims.connect(char_visuals.manage_anims)
 	char_visuals.main_node = self
 	add_child(char_visuals)
+	char_visuals.start_invul.connect(invul)
 	char_visuals.global_rotation.y += deg_to_rad(90)
 	char_visuals.play_sound.connect(audio_player.play_sound)
 	anims = char_visuals.anims
 	unit = char_visuals
 	init_pos = char_visuals.position
+	
+	invul_timer = Timer.new()
+	invul_timer.one_shot = true
+	invul_timer.timeout.connect(char_visuals.invul_end)
+	add_child(invul_timer)
+	
 	update_aether(0)
 	
 	health = max_health
@@ -236,6 +245,11 @@ func _physics_process(delta):
 		else: 
 			direction = Vector2.ZERO
 		var special_lock = false
+		if is_hurt == true && (hurt_manager.hit_timer.time_left < hurt_manager.hit_timer.wait_time/3) && (Input.is_action_just_pressed("normal_attack") || Input.is_action_just_pressed("special_attack")):
+			hurt_manager.hit_timer.stop()
+			play_anims.emit("Recover", "")
+			recovery()
+			char_visuals.invul_start(1.5)
 		if attacks_active == true:
 			if ctrl == true || can_cancel == true && in_hitpause == false && is_hurt == false:
 				if u_light_buffer > 0:
@@ -317,10 +331,12 @@ func _physics_process(delta):
 			gravity_modifier = 1
 			wallslide = false
 			
-		if is_on_wall():
+		if is_on_wall_only():
 			if ctrl == true && is_hurt == false:
-				if l_wall_sensor.is_colliding() && velocity.x <= 0:
+				if l_wall_sensor.is_colliding() &&  l_wall_sensor.get_collider().is_in_group("LeftWall") && velocity.x <= 0:
 					wallslide = true
+					if facing_right == true:
+						_flip()
 					play_anims.emit("Wallslide", "")
 	#				print("WallSlide")
 					gravity_modifier = .1
@@ -328,8 +344,10 @@ func _physics_process(delta):
 						velocity.y = jump_speed/3
 					if Input.is_action_just_pressed("jump") && attacks_active == true:
 						velocity.y = jump_speed
-				elif r_wall_sensor.is_colliding() && velocity.x >= 0:
+				elif r_wall_sensor.is_colliding() &&  r_wall_sensor.get_collider().is_in_group("RightWall") && velocity.x >= 0:
 					wallslide = true
+					if facing_right == false:
+						_flip()
 					play_anims.emit("Wallslide", "")
 	#				print("WallSlide")
 					gravity_modifier = .1
@@ -393,14 +411,16 @@ func _physics_process(delta):
 	else:
 		if has_friction == true:
 			if is_on_floor() && velocity.y == 0 && is_hurt == false:
-				play_anims.emit("Brake", "") if velocity.y == 0 else ""
+				play_anims.emit("Brake", "") 
 			velocity.x = move_toward(velocity.x, 0, (friction if is_on_floor() else air_friction) * delta)  
-
+	
 	if movement_paused == false:
 		if velocity.y < -30:
 			velocity.y = -30
 		move_and_slide()
-
+	
+	if is_on_ceiling() && velocity.y > 4:
+		velocity.y = 4
 func anim_manager(anim):
 	
 	char_visuals.animtree.active = false
@@ -450,6 +470,12 @@ func _flip():
 	char_visuals.rotation_degrees.y += 180
 	facing_right = !facing_right
 
+func recovery():
+	ctrl = false
+	is_hurt = false
+	char_visuals.animtree.active = true
+	
+		
 func end_hitstun():
 	is_hurt = false
 	ctrl = true
@@ -468,6 +494,11 @@ func manage_hurt(hit_info : Move):
 #	current_state = state_machine.HURT
 
 	if override_hurt == true:
+		print(get_node(hit_info.move_owner), get_node(hit_info.move_owner).global_position.x - global_position.x)
+		if get_node(hit_info.move_owner).global_position.x - global_position.x > 0 && facing_right == false:
+			_flip()
+		elif get_node(hit_info.move_owner).global_position.x - global_position.x < 0 && facing_right == true:
+			_flip()
 		anims.play(ov_hurt_anim)
 		override_hurt = false
 	else:
@@ -478,7 +509,7 @@ func manage_hurt(hit_info : Move):
 
 
 func mod_health(damage):
-	print("Damage: ", damage)
+#	print("Damage: ", damage)
 	health -= damage if health > damage else health
 	health_update.emit()
 
@@ -522,3 +553,8 @@ func play_sound(type, strength):
 func update_aether(count):
 	aether += count
 	aether_changed.emit()
+	
+func invul(time):
+	invul_timer.wait_time = time
+	invul_timer.start()
+	

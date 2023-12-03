@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://i8p0flccgdll"]
+
+[ext_resource type="Script" path="res://Enemies/EnemyAITypes/Sentinel.gd" id="1_goq6d"]
+[ext_resource type="PackedScene" uid="uid://cioa87eff1yli" path="res://Enemies/EnemyAITypes/standard_hurt_manager.tscn" id="2_halpk"]
+[ext_resource type="PackedScene" uid="uid://dxk5qj0mxvgbq" path="res://Enemies/Mountain/rock_guy.tscn" id="2_vo4st"]
+[ext_resource type="PackedScene" uid="uid://cvkvracdnwsi2" path="res://UI/HealthBar.tscn" id="3_qa345"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ew7ls"]
+size = Vector3(1, 1.72702, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wictn"]
+viewport_path = NodePath("HealthBarDisplay/SubViewport")
+
+[node name="Sentinel" type="CharacterBody3D" node_paths=PackedStringArray("hurt_manager", "health_bar", "stagger", "bar_display", "hit_time_label")]
+script = ExtResource("1_goq6d")
+health = 300
+hurt_manager = NodePath("StandardHurtManager")
+unit_type = ExtResource("2_vo4st")
+armored_ready = true
+health_bar = NodePath("HealthBarDisplay/SubViewport/HealthBar/HealthBar")
+stagger = NodePath("HealthBarDisplay/SubViewport/HealthBar/HealthBar/Stagger")
+bar_display = NodePath("HealthBarDisplay")
+unit_scale = Vector3(1.5, 1.5, 1.5)
+hit_time_label = NodePath("HealthBarDisplay/SubViewport/HealthBar/Hittime")
+
+[node name="StandardHurtManager" parent="." instance=ExtResource("2_halpk")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.878771, 0)
+shape = SubResource("BoxShape3D_ew7ls")
+
+[node name="HealthBarDisplay" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.432588, 0)
+visible = false
+billboard = 1
+no_depth_test = true
+texture = SubResource("ViewportTexture_wictn")
+
+[node name="SubViewport" type="SubViewport" parent="HealthBarDisplay"]
+disable_3d = true
+transparent_bg = true
+
+[node name="HealthBar" parent="HealthBarDisplay/SubViewport" instance=ExtResource("3_qa345")]
+
+[editable path="HealthBarDisplay/SubViewport/HealthBar"]

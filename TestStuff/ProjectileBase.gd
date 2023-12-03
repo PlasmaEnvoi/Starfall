@@ -64,9 +64,6 @@ func _physics_process(delta):
 
 func detected_hit(target):
 	var viable_target = false
-	print("Proj hit")
-	print(hit_list)
-	print(target.owner)
 	if target.is_in_group("Projectile") == false || target.is_in_group("Stage") == false:
 		for i in hit_list:
 			print(target.owner.main_node.get_groups())

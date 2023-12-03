@@ -15,6 +15,7 @@ size = Vector3(19.8983, 20.1452, 80.0952)
 [node name="BlankSquare" type="Node3D"]
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.982238, 0, 0, 0)
 mesh = SubResource("BoxMesh_x0a8a")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Mesh"]

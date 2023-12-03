@@ -29,7 +29,7 @@ signal finished_base
 #			generate_map(placeholder_rect)
 
 func generate_map(map_rect: Rect2):
-	print("Map Rect: ",map_rect)
+	#print("Map Rect: ",map_rect)
 	map_groups.clear()
 	if rooms.get_child_count() != 0:
 		for room in rooms.get_children():
@@ -116,7 +116,7 @@ func generate_map(map_rect: Rect2):
 	
 	var room_cells = []
 	for cell in map_groups[2]:
-		if room_ids.find(get_cell(cell).room_id) == 1:
+		if room_ids.find(get_cell(cell).room_id) != -1:
 			pass
 		else:
 #			room_cells.clear()

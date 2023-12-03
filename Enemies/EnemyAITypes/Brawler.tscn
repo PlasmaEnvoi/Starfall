@@ -37,7 +37,7 @@ hit_time_label = NodePath("HealthBarDisplay/SubViewport/HealthBar/Hittime")
 transform = Transform3D(0.7, 0, 0, 0, -3.0598e-08, -0.7, 0, 0.7, -3.0598e-08, 0, 0.710941, 0)
 shape = SubResource("SeparationRayShape3D_wjkbn")
 
-[node name="FloorCol2" type="CollisionShape3D" parent="."]
+[node name="CeilCol" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 9.17939e-08, 0.7, 0, -0.7, 9.17939e-08, 0, 0.998401, 0)
 shape = SubResource("SeparationRayShape3D_wjkbn")
 

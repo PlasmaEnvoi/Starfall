@@ -83,7 +83,7 @@ enum abilities{
 @export var move_strength: move_strengths
 @export var interaction_type: priority_type
 @export var move_type: abilities
-@export var move_owner: Node3D
+@export var move_owner: NodePath
 @export var give_meter: int
 @export var take_meter: int
 

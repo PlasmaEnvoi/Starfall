@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://dbb01o3dve4s4"]
+
+[ext_resource type="ArrayMesh" uid="uid://ch6kg37wnxl51" path="res://Effects/dustplume_Circle.res" id="1_ascr7"]
+[ext_resource type="ArrayMesh" uid="uid://5o2fvs61vgry" path="res://Effects/dustplume_Circle_002.res" id="2_svq26"]
+[ext_resource type="Script" path="res://Effects/BasicEffect.gd" id="3_ixmf4"]
+[ext_resource type="ArrayMesh" uid="uid://bpxsp3xlef2uw" path="res://Effects/dustplume_Circle_003.res" id="4_2nx5y"]
+[ext_resource type="Animation" uid="uid://0rhikjodrmhl" path="res://Effects/CircleAction.res" id="5_otc8v"]
+[ext_resource type="Animation" uid="uid://ixwirbpclpcf" path="res://Effects/Circle_001Action.res" id="6_years"]
+[ext_resource type="Animation" uid="uid://ch7n3f8dr1nir" path="res://Effects/rounddustAction_001.res" id="7_5qx2j"]
+
+[sub_resource type="Animation" id="Animation_rvxii"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ejhc"]
+_data = {
+"Circle_001Action": ExtResource("6_years"),
+"Plume": ExtResource("5_otc8v"),
+"RESET": SubResource("Animation_rvxii"),
+"rounddustAction_001": ExtResource("7_5qx2j")
+}
+
+[node name="dustplume" type="Node3D" node_paths=PackedStringArray("anims")]
+script = ExtResource("3_ixmf4")
+anims = NodePath("AnimationPlayer")
+effect_anim = "Plume"
+
+[node name="OuterDust" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.814872, 0, -1.4119, 0, 1.05336, 0, 1.4119, 0, 0.814872, 0, 0, 0)
+mesh = ExtResource("1_ascr7")
+skeleton = NodePath("")
+
+[node name="InnerDust" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.126438, 0, 0.514639, 0, 1.27251, 0, -0.582591, 0, -0.111691, 0, 0, 0)
+mesh = ExtResource("2_svq26")
+skeleton = NodePath("")
+
+[node name="rounddust" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.41795, 0, -2.06955, 0, 2.50871, 0, 2.06955, 0, -1.41795, 0, 0, 0)
+mesh = ExtResource("4_2nx5y")
+skeleton = NodePath("")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3ejhc")
+}

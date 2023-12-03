@@ -1,18 +1,19 @@
-[gd_scene load_steps=22 format=3 uid="uid://b885wc3dkmeoe"]
+[gd_scene load_steps=23 format=3 uid="uid://b885wc3dkmeoe"]
 
 [ext_resource type="Texture2D" uid="uid://qtqvxdcendi1" path="res://NPCs/AlaniPlaceholder.png" id="1_flqam"]
 [ext_resource type="Script" path="res://NPCs/InteractionPoint.gd" id="1_uourf"]
 [ext_resource type="Script" path="res://NPCs/Alani.gd" id="2_8qql6"]
 [ext_resource type="Texture2D" uid="uid://defrxf5b4qcf1" path="res://NPCs/MarcyPlaceholder.png" id="3_adwqt"]
 [ext_resource type="Script" path="res://UI/DialogueStuff/DialogueInfoBase.gd" id="4_tnwog"]
+[ext_resource type="Texture2D" uid="uid://dsxakemkbd2su" path="res://NPCs/AlaniDialogueAtlas.png" id="4_xlnrm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mrdi1"]
 atlas = ExtResource("3_adwqt")
 region = Rect2(-8, -8, 952, 1440)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t2pjl"]
-atlas = ExtResource("1_flqam")
-region = Rect2(8, 8, 592, 800)
+atlas = ExtResource("4_xlnrm")
+region = Rect2(8, 8, 1088, 1240)
 
 [sub_resource type="Resource" id="Resource_ysdaq"]
 script = ExtResource("4_tnwog")

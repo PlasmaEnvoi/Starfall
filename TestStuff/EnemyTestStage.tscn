@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cw4l17dni2q4w"]
+[gd_scene load_steps=10 format=3 uid="uid://cw4l17dni2q4w"]
 
-[ext_resource type="PackedScene" uid="uid://chjcr5rdfdm3c" path="res://Enemies/EnemyAITypes/Brawler.tscn" id="1_hek0r"]
 [ext_resource type="Script" path="res://TestStuff/CamTest.gd" id="3_35wcv"]
 [ext_resource type="PackedScene" uid="uid://cojb87akn5soe" path="res://TestStuff/MarcyCharacterBody.tscn" id="3_p3bts"]
 [ext_resource type="PackedScene" uid="uid://b885wc3dkmeoe" path="res://NPCs/NPCBase.tscn" id="4_f67yf"]
+[ext_resource type="PackedScene" uid="uid://i8p0flccgdll" path="res://Enemies/EnemyAITypes/Sentinel.tscn" id="4_s5wuh"]
+[ext_resource type="Environment" uid="uid://b2cjitqvove5x" path="res://Maps/DeepBriarEnv.tres" id="5_bo4qs"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ic6po"]
 size = Vector3(4, 0.265, 4)
@@ -67,7 +68,7 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.864
 mesh = SubResource("BoxMesh_ic6po")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stage/MeshInstance3D2" groups=["Wall"]]
+[node name="StaticBody3D" type="StaticBody3D" parent="Stage/MeshInstance3D2" groups=["LeftWall", "Wall"]]
 collision_layer = 37
 collision_mask = 37
 
@@ -79,16 +80,12 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.8741
 mesh = SubResource("BoxMesh_ic6po")
 skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stage/MeshInstance3D3" groups=["Wall"]]
+[node name="StaticBody3D" type="StaticBody3D" parent="Stage/MeshInstance3D3" groups=["RightWall", "Wall"]]
 collision_layer = 37
 collision_mask = 37
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/MeshInstance3D3/StaticBody3D"]
 shape = SubResource("BoxShape3D_ogh75")
-
-[node name="BrawlerBase" parent="." instance=ExtResource("1_hek0r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.3194, 0.342, 0)
-unit_scale = Vector3(2, 2, 2)
 
 [node name="MarcyTest" parent="." instance=ExtResource("3_p3bts")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -3.62077, -0.015, 0)
@@ -108,3 +105,10 @@ speed = 4.0
 
 [node name="NPCTest" parent="." instance=ExtResource("4_f67yf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8975, 0, -1)
+
+[node name="Sentinel" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_s5wuh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3049, 1.48837, 0)
+player = NodePath("../MarcyTest")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("5_bo4qs")

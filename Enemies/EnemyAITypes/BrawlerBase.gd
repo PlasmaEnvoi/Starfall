@@ -22,6 +22,7 @@ var stored_vel: Vector3
 @export var has_hit: bool = false
 var in_hitpause: bool = false
 var movement_paused: bool = false
+var hit_enemies = []
 
 @export var health: int
 @export var stagger_percentage: int
@@ -65,11 +66,9 @@ signal landed
 
 func _ready():
 	unit = unit_type.instantiate()
-	armored = unit.armored_ready()
+	armored = unit.armored_ready
 	global_scale(unit_scale)
 	health = unit.base_health
-	stagger_percentage = unit.get_stagger_percentage()
-	stagger.value = stagger_percentage
 	anims = unit.anims
 	unit.main_node = self
 	front_ray = unit.l_ray
@@ -98,18 +97,22 @@ func _ready():
 	
 	add_child(patrol_countdown)
 	
-	attack_cooldown.wait_time = .2
+	attack_cooldown.wait_time = 1
 	attack_cooldown.one_shot = true
 	attack_cooldown.timeout.connect(cooldown_over)
 	
 	add_child(attack_cooldown)
 	attack_cooldown.stop()
 	
+	
 func land_check():
+	print("Landing")
 	if overriding_land == true:
 		print("Attempting Override: ", unit.current_land_override)
 		overriding_land == false
 		anim_manager(unit.current_land_override)
+	else:
+		current_state == state_machine.IDLE
 	if is_hurt == true: 
 		hurt_manager.hurt_land()
 	
@@ -124,7 +127,6 @@ func _physics_process(delta):
 			
 		if is_on_floor() == false:
 			grounded = false
-			
 			
 		match current_state:
 			state_machine.IDLE:
@@ -233,7 +235,7 @@ func anim_manager(anim):
 			anims.play(set_anim)
 	
 func manage_hurt(hit_info : Move):
-	armored = unit.armored_check()
+	armored = unit.armored_check(hit_info.move_damage)
 	if hit_info.armor_piercing == true:
 		armored = false
 	if armored == false:
@@ -291,6 +293,8 @@ func resolve_attack(attack_info):
 	current_state = state_machine.IDLE
 
 func impulse(speed_x, speed_y):
+	if speed_y > 0: 
+		grounded == false
 #	print("Impulse: ", speed_x, " - ", speed_y)
 	velocity = Vector3(speed_x, speed_y, 0)
 
@@ -307,6 +311,8 @@ func cooldown_over():
 
 func mod_health(damage):
 	health -= damage if health > damage else health
+	stagger_percentage = unit.get_stagger_percentage()
+	stagger.value = stagger_percentage
 	bar_display.show()
 	health_bar.value = health
 

@@ -1,4 +1,7 @@
 res://Effects
+res://UI/TitleScreen
+res://Enemies/Mountain
+res://Enemies/EnemyAITypes
 res://TestStuff
 res://Maps/VerrisMountains
 res://TestStuff/TestChars/Staff
@@ -9,7 +12,6 @@ res://UI/DialogueStuff
 res://Enemies/DeepBriar/Imperials/Anims
 res://Enemies/DeepBriar/Imperials
 res://TestStuff/TestChars
-res://Enemies/EnemyAITypes
 res://Maps/UniversalAssets
 res://UI
 res://Maps
@@ -18,6 +20,4 @@ res://Maps/DeepBriar/Trees
 res://Maps/DeepBriar/FloorDeco
 res://Maps/DeepBriar/Platforms
 res://Maps/StageInformation
-res://Maps/DeepBriar
-res://TestStuff/TestChars/Cauldron/Animations
 C:/Program Files (x86)/Steam/steamapps/common/Blender

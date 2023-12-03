@@ -1,6 +1,5 @@
 extends Node3D
 
-class_name GruntVisuals
 
 var is_left_arm_blade: bool = true
 var is_right_arm_blade: bool = true
@@ -11,6 +10,10 @@ var has_wings: bool = true
 @export var blade_l: Node3D
 @export var blade_r: Node3D
 @export var wings: Node3D
+
+@export_group("Randomizer Chances")
+@export var wing_chance: float = .2
+@export var both_arm_chance: float = .6
 
 @export_group("Attacks")
 @export var l_attack_actions: Array[String]
@@ -47,26 +50,37 @@ func get_attack_anim():
 func randomize_unit():
 	#Set random blades
 	var rand_check = randf()
-#	if rand_check <.33:
-#		is_left_arm_blade = false
-#		is_right_arm_blade = true
-#		arm_r.queue_free()
-#		blade_l.queue_free()
-#	elif rand_check <.66:
-#		is_left_arm_blade = true
-#		is_right_arm_blade = false
-#		arm_l.queue_free()
-#		blade_r.queue_free()
-#	else:
-#		is_left_arm_blade = true
-#		is_right_arm_blade = true
+	if rand_check < both_arm_chance:
+		is_left_arm_blade = true
+		is_right_arm_blade = true
+		unit_node.stagger_percentage = 50
+		
+	elif randf() <.6:
+		is_left_arm_blade = true
+		arm_l.queue_free()
+		is_right_arm_blade = false
+		blade_r.queue_free()
+		unit_node.base_health - 100
+		unit_node.stagger_percentage += 20
+		
+	else:
+		is_left_arm_blade = false
+		arm_r.queue_free()
+		is_right_arm_blade = true
+		blade_l.queue_free()
+		unit_node.base_health - 100
+		unit_node.stagger_percentage += 20
+		
 	is_left_arm_blade = true
 	is_right_arm_blade = true
 		
 	#Set Random wings
-	if randf()<.10:
+	if randf() > wing_chance:
 		has_wings = false
 		wings.queue_free()
+	else:
+		unit_node.base_health + 150
+		unit_node.stagger_percentage -= 35
 
 func override_hit(hit_data):
 	pass

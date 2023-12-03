@@ -1,0 +1,126 @@
+[gd_scene load_steps=5 format=3 uid="uid://cb8kxryx7fltp"]
+
+[ext_resource type="Script" path="res://UI/TitleScreen/TitleScreen.gd" id="1_dmkeo"]
+[ext_resource type="Texture2D" uid="uid://jsytubgodebx" path="res://UI/TitleScreen/TitleScreenAssets/Acaciustitlescreen.png" id="2_uh0mv"]
+[ext_resource type="Texture2D" uid="uid://b0u8ht4r38lyi" path="res://UI/TitleScreen/TitleScreenAssets/AlaniTitleScreen.png" id="3_pdc8o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fo22k"]
+
+[node name="TitleScreen" type="Control" node_paths=PackedStringArray("new_game", "continue_game", "run", "options", "exit", "bg_texture")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dmkeo")
+new_game = NodePath("TitleMargin/Menu/Options/NewGame")
+continue_game = NodePath("TitleMargin/Menu/Options/Continue")
+run = NodePath("TitleMargin/Menu/Options/Run")
+options = NodePath("TitleMargin/Menu/Options/Options")
+exit = NodePath("TitleMargin/Menu/Options/Exit")
+bg_texture = NodePath("BG")
+possible_bgs = Array[CompressedTexture2D]([ExtResource("2_uh0mv"), ExtResource("3_pdc8o")])
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="TitleMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="Title" type="Label" parent="TitleMargin"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 105
+text = "STARFALL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Menu" type="Control" parent="TitleMargin"]
+layout_mode = 2
+
+[node name="Options" type="VBoxContainer" parent="TitleMargin/Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.25
+anchor_bottom = 1.0
+offset_top = 0.119995
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="Continue" type="Button" parent="TitleMargin/Menu/Options"]
+custom_minimum_size = Vector2(0, 72.915)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.658824, 0.788235, 1)
+theme_override_colors/font_outline_color = Color(0.984314, 0.266667, 0.619608, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxEmpty_fo22k")
+text = "CONTINUE"
+alignment = 0
+
+[node name="NewGame" type="Button" parent="TitleMargin/Menu/Options"]
+custom_minimum_size = Vector2(0, 72.915)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.658824, 0.788235, 1)
+theme_override_colors/font_outline_color = Color(0.984314, 0.266667, 0.619608, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_fo22k")
+text = "NEW GAME"
+alignment = 0
+
+[node name="Run" type="Button" parent="TitleMargin/Menu/Options"]
+custom_minimum_size = Vector2(0, 72.915)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.658824, 0.788235, 1)
+theme_override_colors/font_outline_color = Color(0.984314, 0.266667, 0.619608, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_fo22k")
+text = "SKIP TO NEW RUN"
+alignment = 0
+
+[node name="Options" type="Button" parent="TitleMargin/Menu/Options"]
+custom_minimum_size = Vector2(0, 72.915)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.658824, 0.788235, 1)
+theme_override_colors/font_outline_color = Color(0.984314, 0.266667, 0.619608, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_fo22k")
+text = "OPTIONS"
+alignment = 0
+
+[node name="Exit" type="Button" parent="TitleMargin/Menu/Options"]
+custom_minimum_size = Vector2(0, 72.915)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.996078, 0.658824, 0.788235, 1)
+theme_override_colors/font_outline_color = Color(0.984314, 0.266667, 0.619608, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_fo22k")
+text = "EXIT"
+alignment = 0

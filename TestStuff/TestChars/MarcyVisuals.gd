@@ -74,13 +74,28 @@ class_name MarcyForm
 @export var slash: Node3D
 
 @export_category("Attack Data")
-
-
+@export_category("Timers")
+var pause_timer
+var invulflash: Timer
+var flash_bool
 
 signal hitframe
 signal play_sound
+signal start_invul
 
 func _ready():
+	pause_timer = Timer.new()
+	pause_timer.one_shot = true
+	pause_timer.process_mode = Node.PROCESS_MODE_ALWAYS 
+	pause_timer.timeout.connect(pause_over)
+	add_child(pause_timer)
+	
+	invulflash = Timer.new()
+	invulflash.one_shot = false
+	invulflash.wait_time = .1
+	invulflash.timeout.connect(flashing_invul)
+	add_child(invulflash)
+	
 	anims.animation_finished.connect(_end_anims)
 	hitbox_a.area_entered.connect(detected_hit)
 	animtree.active = true
@@ -119,7 +134,7 @@ func manage_anims(anim, input):
 			if anim_lock == false:
 				animtree.set("parameters/GroundAirBlend/blend_amount", 0)
 				animtree.set("parameters/GroundMove/blend_amount", abs(main_node.velocity.x/main_node.walk_speed))
-				print(abs(main_node.velocity.x/main_node.walk_speed))
+#				print(abs(main_node.velocity.x/main_node.walk_speed))
 		"Jump":
 			main_node.override_hit = false
 			if anim_lock == false:
@@ -138,6 +153,15 @@ func manage_anims(anim, input):
 				anim_lock = true
 				animtree.active = false
 				anims.play(dash_anim)
+		"Recover":
+			main_node.override_hit = false
+			if anims.get_current_animation() != (recover_air):
+				print("Attempting Recover")
+				anim_lock = true
+				invul_start(.5)
+				animtree.active = false
+				movement_impulse(main_node.input_dir if main_node.input_dir != Vector2.ZERO else Vector2(0,6), true, true)
+				anims.play(recover_air)
 		"Airmove":
 			main_node.override_hit = false
 			if anim_lock == false:
@@ -302,7 +326,7 @@ func establish_hitbox_info(info: Move):
 	main_node.can_cancel = false
 	main_node.hit_enemies.clear()
 	current_hitbox_data = info.duplicate()
-	current_hitbox_data.move_owner = self
+	current_hitbox_data.move_owner = get_path()
 	if main_node.facing_right == false:
 		current_hitbox_data.ground_vel.x *= -1
 		current_hitbox_data.air_vel.x *= -1
@@ -314,7 +338,8 @@ func create_spark(basic_hitspark):
 	get_tree().root.add_child(new_spark)
 	new_spark.global_position.x = global_position.x + current_hitbox_data.spark_pos.x/100.0 * ( -1 if main_node.facing_right == false else 1)
 	new_spark.global_position.y = global_position.y + current_hitbox_data.spark_pos.y/100.0
-	new_spark.rotation_degrees.x = current_hitbox_data.spark_rot + ( 180 if main_node.facing_right == false else 0)
+	new_spark.rotation_degrees.x = current_hitbox_data.spark_rot 
+	new_spark.rotation_degrees.y +=  ( 180 if main_node.facing_right == false else 0)
 	
 func detected_hit(target):
 	main_node.can_jump = true if current_hitbox_data.jump_cancel == true else false
@@ -372,4 +397,31 @@ func override_hurt(active: bool, override_anim : String):
 	main_node.override_hurt = active
 	main_node.ov_hurt_anim = override_anim
 	
+func pause(pause_time : float):
+#	print()
+	get_tree().paused = true
+	pause_timer.wait_time = pause_time
+	pause_timer.start()
+	
+func pause_over():
+	get_tree().paused = false
+	
+func invul_start(time : float):
+	start_invul.emit(time)
+	hurtbox.monitoring = false
+	hurtbox.monitorable = false
+	invulflash.start()
+	
+func invul_end():
+	hurtbox.monitoring = true
+	hurtbox.monitorable = true
+	invulflash.stop()
+	show()
 
+func flashing_invul():
+	show() if flash_bool == true else hide()
+	flash_bool = !flash_bool
+	
+func vel_reset():
+	main_node.has_gravity = true
+	main_node.has_friction = true
